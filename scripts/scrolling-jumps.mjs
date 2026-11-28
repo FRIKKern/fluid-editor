@@ -34,10 +34,14 @@
 // with a second Scrolling block (the phone stack turns, the second first, already while held); D3 150, a drag 150 to 60 to
 // 0. No Cmd+Z rows: a drag's gives back other areas. D2 and D3 have no 'open' row (noOpen): in the oracle's session the
 // Cmd+Z of the plan before them left Redo on there.
+// Y plans (CAP-T12PHONESHARE.json, R2; R1 read alike), in the phone view, built there: two Text blocks under the Scrolling
+// block, the first one row up (Y1, Y3, Y4: 2/2/4/10) or on the top row made 1/2/3/6 with the second at 5/6/7/10 (Y2). When
+// the fall takes the first onto the foot, the second goes up by its move, not by the foot's: Y1 and Y2 150 then 0, Y3 90,
+// 180, 0, Y4 90 and a drag 90 out to 180 and 180 to 0 in one move. Each row checks the phone rows and areas.
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
-const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL'), KEPT = runs('CAP-T12DRAGKEPT');
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL'), KEPT = runs('CAP-T12DRAGKEPT'), SHARE = runs('CAP-T12PHONESHARE');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
 // pre: the oracle's steps before the last 'open'; wave: the Wave Intensity the build sets (there, or with first at the first
@@ -75,6 +79,12 @@ const PLANS = {
   D1: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT },
   D2: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT, second: 'Scrolling', noOpen: true },
   D3: { pre: '', wave: 0, steps: [150, ['jump 150>60>0', [150, 60, 0]]], z: 0, src: KEPT, noOpen: true },
+  // Y plans, in the phone view (CAP-T12PHONESHARE.json, R2; R1 read alike): the blocks under one that lands on the foot go up
+  // by its move, as on the desktop.
+  Y1: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [150, 0], z: 2, src: SHARE, phone: true },
+  Y2: { pre: 'mobile>arr ArrowUp ArrowUp>place 1 1/2/3/6>place 2 5/2/7/6>place 2 5/6/7/10>', wave: 0, steps: [150, 0], z: 2, src: SHARE, phone: true },
+  Y3: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [90, 180, 0], z: 3, src: SHARE, phone: true },
+  Y4: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [90, ['jump 180>0', [...OUT, 0]]], z: 2, src: SHARE, phone: true },
 };
 
 async function session(S) {
@@ -99,7 +109,9 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   // oracle's first 'open' read has it.
   const build = (P) => {
     const p = PLANS[P], o = read(P, p.first ? 'open' : `${p.pre}open`).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
-    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, redo: !!p.first, second: p.second || 'Text', blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    // A phone plan's 'open' read has the phone rows; the desktop's are the section's as built.
+    const rows = p.phone ? { desktop: read(P, 'default').layout.rows, mobile: o.rows } : { desktop: o.rows, mobile: 4 };
+    const spec = JSON.stringify({ rows, wave: p.wave, redo: !!p.first, second: p.second || 'Text', blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, k === 1 ? W.second : 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); if (W.redo) { fe.addSection(); await sleep(300); fe.undo(); await sleep(300); } return JSON.stringify(t.blocks.map((b) => b.id));`);
   };
   let ids = [];
@@ -123,6 +135,7 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   };
   for (const [P, p] of Object.entries(PLANS)) {
     ids = build(P);
+    if (p.phone) qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
     const sid = qs(`return JSON.stringify(fe.model.sections[0].id);`);
     const open = async () => {
       qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(ids[0])}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
