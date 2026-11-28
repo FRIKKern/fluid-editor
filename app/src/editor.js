@@ -4320,7 +4320,9 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // A fall of one step on a block made taller by hand (more rows than its line needed before the step) takes the same rule:
   // 1/2/12/26 at 180 (a line that needs 1/2/7/26), 150 takes it to 1/2/11/26, one row, not to the 1/2/6/26 that holds the
   // new line, and a Text block placed at 8/2/13/10, 8/2/12/10 or 6/2/12/10 stays (CAP-T12HANDFALL.json L1 to L3, R1 and R2
-  // alike). Not read: a drag or a key through such a step, a block made taller by hand in other columns.
+  // alike). A drag one value at a time, ArrowLeft keys and presses take one row a step the same way, 1/2/12/26 at 180 to
+  // 1/2/6/26 at 0, where one press to 0 leaves 1/2/7/26 (CAP-T12HANDSTEPS.json A and B, R1 and R2 alike). Not read: a
+  // block made taller by hand in other columns.
   const sized = bp === 'desktop' && w === w0 && /^Text size /.test(label);
   const tall = !phone && w !== w0 && fall > 0 && rows0 > Math.max(1, Math.ceil((c0 + m.rg) / m.pitch - 0.02));
   if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
