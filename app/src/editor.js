@@ -2562,13 +2562,27 @@ blockPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-btab]');
   if (!t) return;
   designTab = t.dataset.btab;
-  const tb = sel && B(sel.sid, sel.bid);
+  const tb = sel && B(sel.sid, sel.bid), had = document.activeElement === t;
   if (tb) tabOfType.set(tb.standin || tb.type, designTab);
   closeLinkPopover();
   closeShapePop(); // CAP-T7DESIGN.json
   renderBlockPanel();
+  // A press keeps the focus on the tab it opened, through the redraw (CAP-T12DRAGMID.json TK, CAP-T12TABKEYS.json).
+  if (had) blockPanel.querySelector(`[data-btab="${designTab}"]`)?.focus();
 });
 
+// ArrowRight and ArrowLeft on a focused tab of the block panel move the focus to the next tab or the one before, round from
+// the last to the first and back, and open it, already 60 ms after the key; no block moves and Undo and Redo stay. Home and
+// End do nothing (CAP-T12TABKEYS.json T1 and T2, R1 and R2 alike, a Scrolling block's Content, Design and Animation tabs;
+// CAP-T12DRAGMID.json TK). Not read: ArrowUp and ArrowDown, another block kind's tabs (inferred), the phone view.
+blockPanel.addEventListener('keydown', (e) => {
+  const t = e.target.closest?.('[data-btab]');
+  if (!t || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+  e.preventDefault(); e.stopPropagation();
+  const tabs = [...t.parentElement.querySelectorAll('[data-btab]')], to = tabs[(tabs.indexOf(t) + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length].dataset.btab;
+  tabs.find((x) => x.dataset.btab === to).click();
+  blockPanel.querySelector(`[data-btab="${to}"]`)?.focus();
+});
 // Drag the panel by its header (U13). Tabs and other controls in the header still click. The panel
 // holds the pointer: over the canvas iframe the moves would otherwise go to the iframe and the panel stop.
 blockPanel.addEventListener('pointerdown', (e) => {
