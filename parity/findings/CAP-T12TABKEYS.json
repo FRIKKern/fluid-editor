@@ -1,0 +1,2761 @@
+{
+ "item": "CAP-T12TABKEYS",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-28",
+ "engine": "chrome",
+ "question": "T12 (task-2b38c0ecf5e898e0): real keys on the block panel's tabs with the focus on the Design tab, as CAP-T12DRAGMID TK left it. On Blocks Probe at a 1600 by 1000 window, a new section with a new Scrolling block and a Text block (desktop 1/2/3/26 and 1/2/3/10); 'open' selects the Scrolling block, presses Edit and then the Design tab, which keeps the focus. T1: ArrowRight, ArrowRight, ArrowLeft, ArrowLeft, ArrowLeft; T2: ArrowLeft, End, Home; each a real key (Input.dispatchKeyEvent) 1.2 s apart in one DevTools session, read 60 ms and 1.2 s after each ('tabs': the focused element by tag, role, text and label; each tab's text, role, aria-selected, tabindex and focus; which of the panel's labels show; Undo and Redo). Then 'go' (Escape and a press on the page). R1 and R2 are two sessions (probe-x.mjs in the lane folder), with D1 to D3 of CAP-T12DRAGKEPT. Exit without saving each time.",
+ "visited": "Blocks Probe",
+ "readsAre": "As CAP-T12DRAGFALL: layout of the Scrolling block and every block in its section (me: the Scrolling block; line: its drawing's height; sel: selected; kind; desktop and phone areas, top in the section and height), the section rows in the view shown, the Scrolling block's height, line (marquee and svg: top in the block and height), Undo and Redo, the panel's ranges; 'wave' is the panel's Wave Intensity value. 'inputs' holds each drag's quick reads (states: [name, { t: the page's clock, L: the layout as in reads, st: value, focus (isRange: the range has it), Undo/Redo, selected blocks, lines }]) and its events by the page's clock from the first (log: type, ms, the range's value). The read's name is the run, the plan, and the steps in order, '>' between them ('Z' is Cmd+Z, skipped when the section is back as built).",
+ "answer": [
+  "The panel's three tabs are Content, Design and Animation, each a button with role tab; the selected one has aria-selected true and tabindex 0, the others false and -1. After the press on Design the focus is on the Design tab.",
+  "ArrowRight moves the focus to the next tab and selects it, already 60 ms after the key: Design to Animation (the panel shows Animation's controls), and from Animation round to Content (the panel shows Content, its Add Item). ArrowLeft goes back the same way, round from Content to Animation: Content to Animation, Animation to Design (Wave Intensity, Text Style, Speed and Direction again), Design to Content.",
+  "Home and End do nothing: on Content both leave the focus and the selection where they are. No key moves a block, changes Undo or Redo, or moves the panel's own values. R1 and R2 read alike in every read.",
+  "Not read: ArrowUp and ArrowDown, Enter or Space on a tab, a block whose panel has two tabs or four, the phone view."
+ ],
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "file": "X1.json",
+     "ok": true,
+     "startedAt": "2026-11-28T01:06:49.844Z",
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "log": [
+    "T1 added Scrolling yui_3_17_2_1_1795828011196_2042",
+    "T1 added Text yui_3_17_2_1_1795828011196_2336",
+    "T2 added Scrolling yui_3_17_2_1_1795828011196_2557",
+    "T2 added Text yui_3_17_2_1_1795828011196_2851",
+    "read R1 D1 default",
+    "read R1 D2 default",
+    "read R1 D3 default",
+    "read R1 T1 default",
+    "read R1 T2 default",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 D1 open",
+    "wave press 150",
+    "read R1 D1 open>150",
+    "wave press 60",
+    "read R1 D1 open>150>60",
+    "rdrag 60>0 gap 300 each 80 end 80,400,1200",
+    "read R1 D1 open>150>60>drag jump 60>0",
+    "read R1 D1 open>150>60>drag jump 60>0>go",
+    "Cmd+Z",
+    "read R1 D1 open>150>60>drag jump 60>0>go>Z",
+    "Cmd+Z",
+    "read R1 D1 open>150>60>drag jump 60>0>go>Z>Z",
+    "Cmd+Z",
+    "read R1 D1 open>150>60>drag jump 60>0>go>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 D2 open",
+    "wave press 150",
+    "read R1 D2 open>150",
+    "wave press 60",
+    "read R1 D2 open>150>60",
+    "rdrag 60>0 gap 300 each 80 end 80,400,1200",
+    "read R1 D2 open>150>60>drag jump 60>0",
+    "read R1 D2 open>150>60>drag jump 60>0>go",
+    "Cmd+Z",
+    "read R1 D2 open>150>60>drag jump 60>0>go>Z",
+    "Cmd+Z",
+    "read R1 D2 open>150>60>drag jump 60>0>go>Z>Z",
+    "Cmd+Z",
+    "read R1 D2 open>150>60>drag jump 60>0>go>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 D3 open",
+    "wave press 150",
+    "read R1 D3 open>150",
+    "rdrag 150>60>0 gap 300 each 80 end 80,400,1200",
+    "read R1 D3 open>150>drag jump 150>60>0",
+    "read R1 D3 open>150>drag jump 150>60>0>go",
+    "Cmd+Z",
+    "read R1 D3 open>150>drag jump 150>60>0>go>Z",
+    "Cmd+Z",
+    "read R1 D3 open>150>drag jump 150>60>0>go>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 T1 open",
+    "tkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft",
+    "read R1 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft",
+    "read R1 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft>go",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 T2 open",
+    "tkeys ArrowLeft,End,Home",
+    "read R1 T2 open>tabkeys ArrowLeft,End,Home",
+    "read R1 T2 open>tabkeys ArrowLeft,End,Home>go"
+   ],
+   "reads": {
+    "R1 T1 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 T2 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 T1 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ]
+      ],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": null
+    },
+    "R1 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft>go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 T2 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 T2 open>tabkeys ArrowLeft,End,Home": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ]
+      ],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": null
+    },
+    "R1 T2 open>tabkeys ArrowLeft,End,Home>go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "tabs": {
+    "R1 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft": {
+     "states": [
+      [
+       "start",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Wave Intensity",
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 2 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 2",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 3 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 3",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 4 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 4",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Wave Intensity",
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 5 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 5",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ]
+     ]
+    },
+    "R1 T2 open>tabkeys ArrowLeft,End,Home": {
+     "states": [
+      [
+       "start",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Wave Intensity",
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 1 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 1",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "End 2 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "End 2",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "Home 3 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "Home 3",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ]
+     ]
+    }
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "file": "X2.json",
+     "ok": true,
+     "startedAt": "2026-11-28T01:11:41.046Z",
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "log": [
+    "T1 added Scrolling yui_3_17_2_1_1795828281275_2042",
+    "T1 added Text yui_3_17_2_1_1795828281275_2336",
+    "T2 added Scrolling yui_3_17_2_1_1795828281275_2557",
+    "T2 added Text yui_3_17_2_1_1795828281275_2851",
+    "read R2 D1 default",
+    "read R2 D2 default",
+    "read R2 D3 default",
+    "read R2 T1 default",
+    "read R2 T2 default",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 D1 open",
+    "wave press 150",
+    "read R2 D1 open>150",
+    "wave press 60",
+    "read R2 D1 open>150>60",
+    "rdrag 60>0 gap 300 each 80 end 80,400,1200",
+    "read R2 D1 open>150>60>drag jump 60>0",
+    "read R2 D1 open>150>60>drag jump 60>0>go",
+    "Cmd+Z",
+    "read R2 D1 open>150>60>drag jump 60>0>go>Z",
+    "Cmd+Z",
+    "read R2 D1 open>150>60>drag jump 60>0>go>Z>Z",
+    "Cmd+Z",
+    "read R2 D1 open>150>60>drag jump 60>0>go>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 D2 open",
+    "wave press 150",
+    "read R2 D2 open>150",
+    "wave press 60",
+    "read R2 D2 open>150>60",
+    "rdrag 60>0 gap 300 each 80 end 80,400,1200",
+    "read R2 D2 open>150>60>drag jump 60>0",
+    "read R2 D2 open>150>60>drag jump 60>0>go",
+    "Cmd+Z",
+    "read R2 D2 open>150>60>drag jump 60>0>go>Z",
+    "Cmd+Z",
+    "read R2 D2 open>150>60>drag jump 60>0>go>Z>Z",
+    "Cmd+Z",
+    "read R2 D2 open>150>60>drag jump 60>0>go>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 D3 open",
+    "wave press 150",
+    "read R2 D3 open>150",
+    "rdrag 150>60>0 gap 300 each 80 end 80,400,1200",
+    "read R2 D3 open>150>drag jump 150>60>0",
+    "read R2 D3 open>150>drag jump 150>60>0>go",
+    "Cmd+Z",
+    "read R2 D3 open>150>drag jump 150>60>0>go>Z",
+    "Cmd+Z",
+    "read R2 D3 open>150>drag jump 150>60>0>go>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 T1 open",
+    "tkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft",
+    "read R2 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft",
+    "read R2 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft>go",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 T2 open",
+    "tkeys ArrowLeft,End,Home",
+    "read R2 T2 open>tabkeys ArrowLeft,End,Home",
+    "read R2 T2 open>tabkeys ArrowLeft,End,Home>go"
+   ],
+   "reads": {
+    "R2 T1 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 T2 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 T1 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ]
+      ],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": null
+    },
+    "R2 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft>go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 T2 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 T2 open>tabkeys ArrowLeft,End,Home": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ]
+      ],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": null
+    },
+    "R2 T2 open>tabkeys ArrowLeft,End,Home>go": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "tabs": {
+    "R2 T1 open>tabkeys ArrowRight,ArrowRight,ArrowLeft,ArrowLeft,ArrowLeft": {
+     "states": [
+      [
+       "start",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Wave Intensity",
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 2 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowRight 2",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 3 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 3",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Animation",
+         "Animation"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "true",
+          "0",
+          true
+         ]
+        ],
+        "shows": [],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 4 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 4",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Wave Intensity",
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 5 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 5",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ]
+     ]
+    },
+    "R2 T2 open>tabkeys ArrowLeft,End,Home": {
+     "states": [
+      [
+       "start",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Design",
+         "Design"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Design",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Wave Intensity",
+         "Text Style",
+         "Speed",
+         "Direction"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 1 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "ArrowLeft 1",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "End 2 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "End 2",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "Home 3 soon",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ],
+      [
+       "Home 3",
+       {
+        "focus": [
+         "BUTTON",
+         "tab",
+         "Content",
+         "Content"
+        ],
+        "tabs": [
+         [
+          "Content",
+          "tab",
+          "true",
+          "0",
+          true
+         ],
+         [
+          "Design",
+          "tab",
+          "false",
+          "-1",
+          false
+         ],
+         [
+          "Animation",
+          "tab",
+          "false",
+          "-1",
+          false
+         ]
+        ],
+        "shows": [
+         "Add Item"
+        ],
+        "undo": [
+         true,
+         true
+        ]
+       }
+      ]
+     ]
+    }
+   }
+  }
+ }
+}
