@@ -29,6 +29,9 @@
 // placed in the model. L plans (CAP-T12HANDFALL.json, R2; R1 read alike): a one-step fall, 180 to 150, on the Scrolling block
 // made 1/2/12/26 by hand (its line needs 1/2/7/26) takes one row, to 1/2/11/26, and a Text block placed at 8/2/13/10 (L1),
 // 8/2/12/10 (L2) or 6/2/12/10 (L3) stays.
+// C plans (CAP-T12HANDFOOT.json, R2; R1 read alike): L's one-step fall with the Text block starting between the new and the
+// old foot: on the new foot (C1, 11/2/13/10) it stays; on the old foot (C2, 12/2/14/10) it goes up with the foot, to
+// 11/2/13/10, and the section from 13 rows to 12.
 // D plans (CAP-T12DRAGKEPT.json, R2; R1 read alike): a drag that falls two steps or more in one move keeps a 2-row block's
 // rows as presses do (CAP-T12SHORT H): D1 150, 60, a drag 60 to 0 (1/2/3/26 stays, the Text block at 3/2/5/10); D2 the same
 // with a second Scrolling block (the phone stack turns, the second first, already while held); D3 150, a drag 150 to 60 to
@@ -41,6 +44,7 @@
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
+const FOOT = runs('CAP-T12HANDFOOT');
 const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL'), KEPT = runs('CAP-T12DRAGKEPT'), SHARE = runs('CAP-T12PHONESHARE');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
@@ -76,6 +80,8 @@ const PLANS = {
   L1: { pre: L('8/2/13/10'), wave: 180, steps: [150], z: 1, src: HAND },
   L2: { pre: L('8/2/12/10'), wave: 180, steps: [150], z: 1, src: HAND },
   L3: { pre: L('6/2/12/10'), wave: 180, steps: [150], z: 1, src: HAND },
+  C1: { pre: L('11/2/13/10'), wave: 180, steps: [150], z: 1, src: FOOT },
+  C2: { pre: L('12/2/14/10'), wave: 180, steps: [150], z: 1, src: FOOT },
   D1: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT },
   D2: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT, second: 'Scrolling', noOpen: true },
   D3: { pre: '', wave: 0, steps: [150, ['jump 150>60>0', [150, 60, 0]]], z: 0, src: KEPT, noOpen: true },
