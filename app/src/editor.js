@@ -4303,10 +4303,15 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // block at 8/2/10/10 to 5/2/7/10; Small then 1/2/5/26, the Text block staying on the new foot (CAP-T12SHORT I, R3 and R4;
   // CAP-T12SHORTFALL IB, two sessions). Not read: a fall from 3 rows or more to a line that still needs them all, a Text Size
   // fall under 60 px (it refits, as before), Text Size in the phone view.
+  // A fall of one step on a block made taller by hand (more rows than its line needed before the step) takes the same rule:
+  // 1/2/12/26 at 180 (a line that needs 1/2/7/26), 150 takes it to 1/2/11/26, one row, not to the 1/2/6/26 that holds the
+  // new line, and a Text block placed at 8/2/13/10, 8/2/12/10 or 6/2/12/10 stays (CAP-T12HANDFALL.json L1 to L3, R1 and R2
+  // alike). Not read: a drag or a key through such a step, a block made taller by hand in other columns.
   const sized = bp === 'desktop' && w === w0 && /^Text size /.test(label);
+  const tall = !phone && w !== w0 && fall > 0 && rows0 > Math.max(1, Math.ceil((c0 + m.rg) / m.pitch - 0.02));
   if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
   else if (phone) need = fall < 0 ? Math.max(rows0, fit) : fit;
-  else if ((w !== w0 || sized) && fall >= m.pitch) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
+  else if ((w !== w0 || sized) && (fall >= m.pitch || tall)) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
   else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
   else if (w !== w0 && fall < 0) need = Math.max(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
