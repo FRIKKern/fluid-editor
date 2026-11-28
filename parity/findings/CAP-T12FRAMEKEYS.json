@@ -1,0 +1,4074 @@
+{
+ "item": "CAP-T12FRAMEKEYS",
+ "oracle": "/blocks-probe",
+ "capturedAt": "2026-11-27",
+ "engine": "chrome",
+ "question": "T12 (task-fd1992253e1a8f91): on the desktop, with a Scrolling block's Design panel open, an arrow key with the focus in the page's frame (not on the panel): does it move the block, the value or the rows? On Blocks Probe at a 1600 by 1000 window, one new section per plan with a new Scrolling block and a Text block added after it, made on the desktop (desktop 1/2/3/26 and 1/2/3/10). Select the Scrolling block, Edit, Design ('open'), a press on Wave Intensity 90; then, through one DevTools session, the frame's window focused by script (no press: the panel stays open; the frame's body then has the focus), one real key, and reads of the value, the focus and Undo and Redo 60 ms and 1200 ms after it ('keys'); then a read, Escape and a press on the page ('go'), and Cmd+Z until as built. F1: ArrowRight; F2: ArrowDown. R1 and R2 are two sessions (probe-w.mjs in the lane folder), each with plans of other tasks. Exit without saving each time.",
+ "visited": "Blocks Probe",
+ "readsAre": "As CAP-T12DRAGFALL: layout of the Scrolling block and every block in its section (me: the Scrolling block; line: its drawing's height; sel: selected; kind; desktop and phone areas, top in the section and height), the section rows in the view shown, the Scrolling block's height, line (marquee and svg: top in the block and height), Undo and Redo, the panel's ranges; 'wave' is the panel's Wave Intensity value. 'inputs' holds each drag's quick reads (states: [name, { t: the page's clock, L: the layout as in reads, st: value, focus (isRange: the range has it), Undo/Redo, selected blocks, lines }]) and its events by the page's clock from the first (log: type, ms, the range's value). The read's name is the run, the plan, and the steps in order, '>' between them ('Z' is Cmd+Z, skipped when the section is back as built).",
+ "answer": [
+  "With the focus in the frame (its body) and the panel open, ArrowRight (F1) and ArrowDown (F2) move nothing: the value stays 90, the Scrolling block 1/2/5/26 and the Text block 3/2/5/10, 10 rows, Undo on and Redo off, the focus still in the frame; the panel stays open.",
+  "Escape keeps every area; one Cmd+Z takes back the press on 90. R1 and R2 read alike in every read (areas, rows, line, Undo and Redo, the value and the focus).",
+  "Not read: ArrowLeft and ArrowUp (inferred), the focus on the selected block's own element in the frame, the phone view, an arrow with a modifier."
+ ],
+ "runs": {
+  "R1": {
+   "sessions": [
+    {
+     "file": "R1.json",
+     "ok": true,
+     "startedAt": "2026-11-27T19:37:43.976Z",
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "log": [
+    "F1 added Scrolling yui_3_17_2_1_1795808265307_8123",
+    "F1 added Text yui_3_17_2_1_1795808265307_8417",
+    "F2 added Scrolling yui_3_17_2_1_1795808265307_8638",
+    "F2 added Text yui_3_17_2_1_1795808265307_8932",
+    "read R1 K1 default",
+    "read R1 K2 default",
+    "read R1 L1 default",
+    "read R1 L2 default",
+    "read R1 L3 default",
+    "read R1 M1 default",
+    "read R1 M2 default",
+    "read R1 M3 default",
+    "read R1 M4 default",
+    "read R1 N1 default",
+    "read R1 N2 default",
+    "read R1 N3 default",
+    "read R1 F1 default",
+    "read R1 F2 default",
+    "read R1 K1 place 2 8/14/10/20",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 K1 place 2 8/14/10/20>open",
+    "wave press 90",
+    "read R1 K1 place 2 8/14/10/20>open>90",
+    "wave press 179",
+    "read R1 K1 place 2 8/14/10/20>open>90>180",
+    "wave press 0",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0>go",
+    "Cmd+Z",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0>go>Z",
+    "Cmd+Z",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z",
+    "Cmd+Z",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z>Z>Z",
+    "read R1 K2 place 2 8/2/10/10",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open",
+    "wave press 90",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90",
+    "wave press 179",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180",
+    "wave press 0",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go",
+    "Cmd+Z",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z",
+    "Cmd+Z",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z",
+    "Cmd+Z",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 L1 open",
+    "wave press 179",
+    "read R1 L1 open>180",
+    "read R1 L1 open>180>go",
+    "read R1 L1 open>180>go>place 0 1/2/12/26",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open",
+    "wave press 150",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go",
+    "Cmd+Z",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z",
+    "Cmd+Z",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z",
+    "Cmd+Z",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 L2 open",
+    "wave press 179",
+    "read R1 L2 open>180",
+    "read R1 L2 open>180>go",
+    "read R1 L2 open>180>go>place 0 1/2/12/26",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open",
+    "wave press 150",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go",
+    "Cmd+Z",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z",
+    "Cmd+Z",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z",
+    "Cmd+Z",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 L3 open",
+    "wave press 179",
+    "read R1 L3 open>180",
+    "read R1 L3 open>180>go",
+    "read R1 L3 open>180>go>place 0 1/2/12/26",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open",
+    "wave press 150",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go",
+    "Cmd+Z",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z",
+    "Cmd+Z",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z",
+    "Cmd+Z",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R1 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z>Z>Z>Z",
+    "read R1 M1 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 M1 place 2 8/2/10/10>open",
+    "wave press 179",
+    "read R1 M1 place 2 8/2/10/10>open>180",
+    "akeys Home x1 gap 1200",
+    "read R1 M1 place 2 8/2/10/10>open>180>Home x1 1200",
+    "read R1 M1 place 2 8/2/10/10>open>180>Home x1 1200>go",
+    "Cmd+Z",
+    "read R1 M1 place 2 8/2/10/10>open>180>Home x1 1200>go>Z",
+    "Cmd+Z",
+    "read R1 M1 place 2 8/2/10/10>open>180>Home x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R1 M1 place 2 8/2/10/10>open>180>Home x1 1200>go>Z>Z>Z",
+    "read R1 M2 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 M2 place 2 8/2/10/10>open",
+    "wave press 90",
+    "read R1 M2 place 2 8/2/10/10>open>90",
+    "akeys End x1 gap 1200",
+    "read R1 M2 place 2 8/2/10/10>open>90>End x1 1200",
+    "read R1 M2 place 2 8/2/10/10>open>90>End x1 1200>go",
+    "Cmd+Z",
+    "read R1 M2 place 2 8/2/10/10>open>90>End x1 1200>go>Z",
+    "Cmd+Z",
+    "read R1 M2 place 2 8/2/10/10>open>90>End x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R1 M2 place 2 8/2/10/10>open>90>End x1 1200>go>Z>Z>Z",
+    "read R1 M3 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 M3 place 2 8/2/10/10>open",
+    "wave press 179",
+    "read R1 M3 place 2 8/2/10/10>open>180",
+    "akeys PageDown x1 gap 1200",
+    "read R1 M3 place 2 8/2/10/10>open>180>PageDown x1 1200",
+    "read R1 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go",
+    "Cmd+Z",
+    "read R1 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z",
+    "Cmd+Z",
+    "read R1 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R1 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z>Z>Z",
+    "read R1 M4 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 M4 place 2 8/2/10/10>open",
+    "wave press 90",
+    "read R1 M4 place 2 8/2/10/10>open>90",
+    "akeys PageUp x1 gap 1200",
+    "read R1 M4 place 2 8/2/10/10>open>90>PageUp x1 1200",
+    "read R1 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go",
+    "Cmd+Z",
+    "read R1 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z",
+    "Cmd+Z",
+    "read R1 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R1 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z>Z>Z",
+    "read R1 N1 place 1 2/2/4/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 N1 place 1 2/2/4/10>open",
+    "wave press 30",
+    "read R1 N1 place 1 2/2/4/10>open>30",
+    "pressed Small text size",
+    "read R1 N1 place 1 2/2/4/10>open>30>Small text size",
+    "read R1 N1 place 1 2/2/4/10>open>30>Small text size>go",
+    "Cmd+Z",
+    "read R1 N1 place 1 2/2/4/10>open>30>Small text size>go>Z",
+    "Cmd+Z",
+    "read R1 N1 place 1 2/2/4/10>open>30>Small text size>go>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 N2 open",
+    "wave press 60",
+    "read R1 N2 open>60",
+    "read R1 N2 open>60>go",
+    "read R1 N2 open>60>go>place 1 3/2/5/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 N2 open>60>go>place 1 3/2/5/10>open",
+    "pressed Small text size",
+    "read R1 N2 open>60>go>place 1 3/2/5/10>open>Small text size",
+    "read R1 N2 open>60>go>place 1 3/2/5/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R1 N2 open>60>go>place 1 3/2/5/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R1 N2 open>60>go>place 1 3/2/5/10>open>Small text size>go>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 N3 open",
+    "wave press 90",
+    "read R1 N3 open>90",
+    "read R1 N3 open>90>go",
+    "read R1 N3 open>90>go>place 1 3/2/5/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 N3 open>90>go>place 1 3/2/5/10>open",
+    "pressed Small text size",
+    "read R1 N3 open>90>go>place 1 3/2/5/10>open>Small text size",
+    "read R1 N3 open>90>go>place 1 3/2/5/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R1 N3 open>90>go>place 1 3/2/5/10>open>Small text size>go>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 F1 open",
+    "wave press 90",
+    "read R1 F1 open>90",
+    "frame focus true",
+    "akeys ArrowRight x1 gap 1200",
+    "read R1 F1 open>90>ArrowRight x1 1200",
+    "read R1 F1 open>90>ArrowRight x1 1200>go",
+    "Cmd+Z",
+    "read R1 F1 open>90>ArrowRight x1 1200>go>Z",
+    "F1 Z skipped: as built",
+    "F1 Z skipped: as built",
+    "pressed Edit",
+    "pressed Design",
+    "read R1 F2 open",
+    "wave press 90",
+    "read R1 F2 open>90",
+    "frame focus true",
+    "akeys ArrowDown x1 gap 1200",
+    "read R1 F2 open>90>ArrowDown x1 1200",
+    "read R1 F2 open>90>ArrowDown x1 1200>go",
+    "Cmd+Z",
+    "read R1 F2 open>90>ArrowDown x1 1200>go>Z",
+    "F2 Z skipped: as built",
+    "F2 Z skipped: as built"
+   ],
+   "reads": {
+    "R1 F1 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 F2 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 F1 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 F1 open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 F1 open>90>ArrowRight x1 1200": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 F1 open>90>ArrowRight x1 1200>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 F1 open>90>ArrowRight x1 1200>go>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 F2 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R1 F2 open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 F2 open>90>ArrowDown x1 1200": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R1 F2 open>90>ArrowDown x1 1200>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R1 F2 open>90>ArrowDown x1 1200>go>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "keys": {
+    "R1 F1 open>90>ArrowRight x1 1200": {
+     "v0": 90,
+     "states": [
+      [
+       "pressed",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8123"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1 soon",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8123"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8123"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "after",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8123"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "inputs": []
+    },
+    "R1 F2 open>90>ArrowDown x1 1200": {
+     "v0": 90,
+     "states": [
+      [
+       "pressed",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8638"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          124
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowDown 1 soon",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8638"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          124
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowDown 1",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8638"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          124
+         ]
+        ]
+       }
+      ],
+      [
+       "after",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795808265307_8638"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795808265307_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795808265307_8638",
+          124
+         ]
+        ]
+       }
+      ]
+     ],
+     "inputs": []
+    }
+   }
+  },
+  "R2": {
+   "sessions": [
+    {
+     "file": "R2.json",
+     "ok": true,
+     "startedAt": "2026-11-27T19:57:59.248Z",
+     "sectionsBefore": 0,
+     "frameWidth": 1600,
+     "dirty": true,
+     "exitSteps": [
+      "top Exit",
+      "dialog Exit"
+     ]
+    }
+   ],
+   "log": [
+    "F1 added Scrolling yui_3_17_2_1_1795809346430_6578",
+    "F1 added Text yui_3_17_2_1_1795809346430_6872",
+    "F2 added Scrolling yui_3_17_2_1_1795809346430_7093",
+    "F2 added Text yui_3_17_2_1_1795809346430_7387",
+    "N4b added Scrolling yui_3_17_2_1_1795809346430_9153",
+    "N4b added Text yui_3_17_2_1_1795809346430_9447",
+    "N5b added Scrolling yui_3_17_2_1_1795809346430_9668",
+    "N5b added Text yui_3_17_2_1_1795809346430_9962",
+    "N6b added Scrolling yui_3_17_2_1_1795809346430_10183",
+    "N6b added Text yui_3_17_2_1_1795809346430_10477",
+    "read R2 K1 default",
+    "read R2 K2 default",
+    "read R2 L1 default",
+    "read R2 L2 default",
+    "read R2 L3 default",
+    "read R2 M1 default",
+    "read R2 M2 default",
+    "read R2 M3 default",
+    "read R2 M4 default",
+    "read R2 F1 default",
+    "read R2 F2 default",
+    "read R2 N4 default",
+    "read R2 N5 default",
+    "read R2 N6 default",
+    "read R2 N4b default",
+    "read R2 N5b default",
+    "read R2 N6b default",
+    "read R2 K1 place 2 8/14/10/20",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 K1 place 2 8/14/10/20>open",
+    "wave press 90",
+    "read R2 K1 place 2 8/14/10/20>open>90",
+    "wave press 179",
+    "read R2 K1 place 2 8/14/10/20>open>90>180",
+    "wave press 0",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0>go",
+    "Cmd+Z",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0>go>Z",
+    "Cmd+Z",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z",
+    "Cmd+Z",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 K1 place 2 8/14/10/20>open>90>180>0>go>Z>Z>Z>Z>Z",
+    "read R2 K2 place 2 8/2/10/10",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open",
+    "wave press 90",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90",
+    "wave press 179",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180",
+    "wave press 0",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go",
+    "Cmd+Z",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z",
+    "Cmd+Z",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z",
+    "Cmd+Z",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 K2 place 2 8/2/10/10>place 3 11/2/13/10>open>90>180>0>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 L1 open",
+    "wave press 179",
+    "read R2 L1 open>180",
+    "read R2 L1 open>180>go",
+    "read R2 L1 open>180>go>place 0 1/2/12/26",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open",
+    "wave press 150",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go",
+    "Cmd+Z",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z",
+    "Cmd+Z",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z",
+    "Cmd+Z",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 L1 open>180>go>place 0 1/2/12/26>place 1 8/2/13/10>open>150>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 L2 open",
+    "wave press 179",
+    "read R2 L2 open>180",
+    "read R2 L2 open>180>go",
+    "read R2 L2 open>180>go>place 0 1/2/12/26",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open",
+    "wave press 150",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go",
+    "Cmd+Z",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z",
+    "Cmd+Z",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z",
+    "Cmd+Z",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 L2 open>180>go>place 0 1/2/12/26>place 1 8/2/12/10>open>150>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 L3 open",
+    "wave press 179",
+    "read R2 L3 open>180",
+    "read R2 L3 open>180>go",
+    "read R2 L3 open>180>go>place 0 1/2/12/26",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open",
+    "wave press 150",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go",
+    "Cmd+Z",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z",
+    "Cmd+Z",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z",
+    "Cmd+Z",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 L3 open>180>go>place 0 1/2/12/26>place 1 6/2/12/10>open>150>go>Z>Z>Z>Z>Z",
+    "read R2 M1 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 M1 place 2 8/2/10/10>open",
+    "wave press 179",
+    "read R2 M1 place 2 8/2/10/10>open>180",
+    "akeys Home x1 gap 1200",
+    "read R2 M1 place 2 8/2/10/10>open>180>Home x1 1200",
+    "read R2 M1 place 2 8/2/10/10>open>180>Home x1 1200>go",
+    "Cmd+Z",
+    "read R2 M1 place 2 8/2/10/10>open>180>Home x1 1200>go>Z",
+    "Cmd+Z",
+    "read R2 M1 place 2 8/2/10/10>open>180>Home x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R2 M1 place 2 8/2/10/10>open>180>Home x1 1200>go>Z>Z>Z",
+    "read R2 M2 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 M2 place 2 8/2/10/10>open",
+    "wave press 90",
+    "read R2 M2 place 2 8/2/10/10>open>90",
+    "akeys End x1 gap 1200",
+    "read R2 M2 place 2 8/2/10/10>open>90>End x1 1200",
+    "read R2 M2 place 2 8/2/10/10>open>90>End x1 1200>go",
+    "Cmd+Z",
+    "read R2 M2 place 2 8/2/10/10>open>90>End x1 1200>go>Z",
+    "Cmd+Z",
+    "read R2 M2 place 2 8/2/10/10>open>90>End x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R2 M2 place 2 8/2/10/10>open>90>End x1 1200>go>Z>Z>Z",
+    "read R2 M3 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 M3 place 2 8/2/10/10>open",
+    "wave press 179",
+    "read R2 M3 place 2 8/2/10/10>open>180",
+    "akeys PageDown x1 gap 1200",
+    "read R2 M3 place 2 8/2/10/10>open>180>PageDown x1 1200",
+    "read R2 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go",
+    "Cmd+Z",
+    "read R2 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z",
+    "Cmd+Z",
+    "read R2 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R2 M3 place 2 8/2/10/10>open>180>PageDown x1 1200>go>Z>Z>Z",
+    "read R2 M4 place 2 8/2/10/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 M4 place 2 8/2/10/10>open",
+    "wave press 90",
+    "read R2 M4 place 2 8/2/10/10>open>90",
+    "akeys PageUp x1 gap 1200",
+    "read R2 M4 place 2 8/2/10/10>open>90>PageUp x1 1200",
+    "read R2 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go",
+    "Cmd+Z",
+    "read R2 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z",
+    "Cmd+Z",
+    "read R2 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z>Z",
+    "Cmd+Z",
+    "read R2 M4 place 2 8/2/10/10>open>90>PageUp x1 1200>go>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 F1 open",
+    "wave press 90",
+    "read R2 F1 open>90",
+    "frame focus true",
+    "akeys ArrowRight x1 gap 1200",
+    "read R2 F1 open>90>ArrowRight x1 1200",
+    "read R2 F1 open>90>ArrowRight x1 1200>go",
+    "Cmd+Z",
+    "read R2 F1 open>90>ArrowRight x1 1200>go>Z",
+    "F1 Z skipped: as built",
+    "F1 Z skipped: as built",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 F2 open",
+    "wave press 90",
+    "read R2 F2 open>90",
+    "frame focus true",
+    "akeys ArrowDown x1 gap 1200",
+    "read R2 F2 open>90>ArrowDown x1 1200",
+    "read R2 F2 open>90>ArrowDown x1 1200>go",
+    "Cmd+Z",
+    "read R2 F2 open>90>ArrowDown x1 1200>go>Z",
+    "F2 Z skipped: as built",
+    "F2 Z skipped: as built",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N4 open",
+    "pressed Medium text size",
+    "read R2 N4 open>Medium text size",
+    "read R2 N4 open>Medium text size>go",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10>open",
+    "pressed Small text size",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z",
+    "Cmd+Z",
+    "read R2 N4 open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N5 open",
+    "wave press 30",
+    "read R2 N5 open>30",
+    "pressed Medium text size",
+    "read R2 N5 open>30>Medium text size",
+    "read R2 N5 open>30>Medium text size>go",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open",
+    "pressed Small text size",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z",
+    "Cmd+Z",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 N5 open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N6 open",
+    "wave press 60",
+    "read R2 N6 open>60",
+    "pressed Medium text size",
+    "read R2 N6 open>60>Medium text size",
+    "read R2 N6 open>60>Medium text size>go",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open",
+    "pressed Small text size",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z",
+    "Cmd+Z",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 N6 open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z>Z>Z",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N4b open",
+    "pressed Medium text size",
+    "read R2 N4b open>Medium text size",
+    "read R2 N4b open>Medium text size>go",
+    "N4b place 1 2/2/12/10 -> 2/2/12/10",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10>open",
+    "pressed Small text size",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z",
+    "Cmd+Z",
+    "read R2 N4b open>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z",
+    "N4b Z skipped: as built",
+    "N4b Z skipped: as built",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N5b open",
+    "wave press 30",
+    "read R2 N5b open>30",
+    "pressed Medium text size",
+    "read R2 N5b open>30>Medium text size",
+    "read R2 N5b open>30>Medium text size>go",
+    "N5b place 1 2/2/12/10 -> 2/2/12/10",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open",
+    "pressed Small text size",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z",
+    "Cmd+Z",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 N5b open>30>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z>Z",
+    "N5b Z skipped: as built",
+    "N5b Z skipped: as built",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N6b open",
+    "wave press 60",
+    "read R2 N6b open>60",
+    "pressed Medium text size",
+    "read R2 N6b open>60>Medium text size",
+    "read R2 N6b open>60>Medium text size>go",
+    "N6b place 1 2/2/12/10 -> 2/2/12/10",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10",
+    "pressed Edit",
+    "pressed Design",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open",
+    "pressed Small text size",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go",
+    "Cmd+Z",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z",
+    "Cmd+Z",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z",
+    "Cmd+Z",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z>Z",
+    "Cmd+Z",
+    "read R2 N6b open>60>Medium text size>go>place 1 2/2/12/10>open>Small text size>go>Z>Z>Z>Z>Z",
+    "N6b Z skipped: as built"
+   ],
+   "reads": {
+    "R2 F1 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 F2 default": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 F1 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 F1 open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 F1 open>90>ArrowRight x1 1200": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 F1 open>90>ArrowRight x1 1200>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 F1 open>90>ArrowRight x1 1200>go>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 F2 open": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "0"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "0",
+      ""
+     ]
+    },
+    "R2 F2 open>90": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 F2 open>90>ArrowDown x1 1200": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [
+       [
+        "Animation",
+        null,
+        "css-1jjp8vb"
+       ],
+       [
+        "Small text size",
+        "true",
+        "css-9fjdvf"
+       ],
+       [
+        "Medium text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Large text size",
+        "false",
+        "css-1t62xde"
+       ],
+       [
+        "Animation direction left",
+        "true",
+        "css-99x3cu"
+       ],
+       [
+        "Animation direction right",
+        "false",
+        "css-10k8qz2"
+       ],
+       [
+        "Animation speed 0.5x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Animation speed 1x",
+        "true",
+        "css-1cl6kun"
+       ],
+       [
+        "Animation speed 2x",
+        "false",
+        "css-1x1syg4"
+       ],
+       [
+        "Pause on hover",
+        false,
+        "css-1h34l1u"
+       ],
+       [
+        "Fade edges",
+        false,
+        "css-1h34l1u"
+       ]
+      ],
+      "ranges": [
+       [
+        "Wave Intensity",
+        "90"
+       ],
+       [
+        "Item Spacing",
+        "0.5"
+       ]
+      ],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": true,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     },
+     "wave": [
+      "90",
+      ""
+     ]
+    },
+    "R2 F2 open>90>ArrowDown x1 1200>go": {
+     "layout": {
+      "desktop": "1/2/5/26",
+      "phone": "1/2/3/10",
+      "rows": 10,
+      "rowSizes": "30.0938px",
+      "block": 153.4,
+      "marquee": [
+       14.7,
+       124
+      ],
+      "svg": [
+       18.1,
+       124
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       false
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 124,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/5/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 153.4
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "3/2/5/10",
+        "phone": "3/2/5/10",
+        "top": 82.2,
+        "height": 71.2
+       }
+      ]
+     }
+    },
+    "R2 F2 open>90>ArrowDown x1 1200>go>Z": {
+     "layout": {
+      "desktop": "1/2/3/26",
+      "phone": "1/2/3/10",
+      "rows": 8,
+      "rowSizes": "30.0938px",
+      "block": 71.2,
+      "marquee": [
+       18.6,
+       34
+      ],
+      "svg": [
+       22,
+       34
+      ],
+      "paragraph": false,
+      "h1": true,
+      "styleShown": [],
+      "undo": [
+       true,
+       true
+      ],
+      "ctl": [],
+      "ranges": [],
+      "all": [
+       {
+        "me": true,
+        "line": 34,
+        "sel": false,
+        "kind": "scrolling",
+        "desktop": "1/2/3/26",
+        "phone": "1/2/3/10",
+        "top": 0,
+        "height": 71.2
+       },
+       {
+        "me": false,
+        "line": null,
+        "sel": false,
+        "kind": "other",
+        "desktop": "1/2/3/10",
+        "phone": "3/2/5/10",
+        "top": 0,
+        "height": 71.2
+       }
+      ]
+     }
+    }
+   },
+   "keys": {
+    "R2 F1 open>90>ArrowRight x1 1200": {
+     "v0": 90,
+     "states": [
+      [
+       "pressed",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_6578"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1 soon",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_6578"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowRight 1",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_6578"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "after",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_6578"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "inputs": []
+    },
+    "R2 F2 open>90>ArrowDown x1 1200": {
+     "v0": 90,
+     "states": [
+      [
+       "pressed",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_7093"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowDown 1 soon",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_7093"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "ArrowDown 1",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_7093"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ],
+      [
+       "after",
+       {
+        "value": "90",
+        "focus": {
+         "tag": "IFRAME",
+         "type": null,
+         "isRange": false,
+         "sameRangeLabel": null,
+         "label": null,
+         "inFrame": true,
+         "frameFocus": "BODY.primary-button-style-solid primary-butto"
+        },
+        "undo": [
+         true,
+         false
+        ],
+        "selected": [
+         "yui_3_17_2_1_1795809346430_7093"
+        ],
+        "lines": [
+         [
+          "yui_3_17_2_1_1795809346430_412",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_1146",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2101",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_2616",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3131",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_3646",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_4379",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5112",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_5845",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_6578",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7093",
+          124
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_7608",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8123",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_8638",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9153",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_9668",
+          34
+         ],
+         [
+          "yui_3_17_2_1_1795809346430_10183",
+          34
+         ]
+        ]
+       }
+      ]
+     ],
+     "inputs": []
+    }
+   }
+  }
+ }
+}
