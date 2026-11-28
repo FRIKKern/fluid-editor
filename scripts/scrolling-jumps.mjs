@@ -24,11 +24,15 @@
 // block stays on the new foot), M4 PageUp from 90 (120: no area moves). The key's rows also check the range's value, its
 // focus and Undo and Redo, read in the key's own DevTools session. N plans (CAP-T12SIZEFALL.json, R2; R1 read alike): Text
 // Size Medium to Small with a Text block placed at 2/2/12/10, between the top and the new foot: it stays as the foot comes up
-// (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26).
+// (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26). D plans (CAP-T12DRAGKEPT.json, R2; R1 read alike): a drag
+// that falls two steps or more in one move keeps a 2-row block's rows as presses do (CAP-T12SHORT H): D1 150, 60, a drag 60
+// to 0 (1/2/3/26 stays, the Text block at 3/2/5/10); D2 the same with a second Scrolling block (the phone stack turns, the
+// second first, already while held); D3 150, a drag 150 to 60 to 0. No Cmd+Z rows: a drag's gives back other areas. D2 and
+// D3 have no 'open' row (noOpen): in the oracle's session the Cmd+Z of the plan before them left Redo on there.
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
-const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL');
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), KEPT = runs('CAP-T12DRAGKEPT');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
 // pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
@@ -58,6 +62,9 @@ const PLANS = {
   N4: { pre: 'open>Medium text size>go>place 1 2/2/12/10>', wave: 0, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
   N5: { pre: 'open>30>Medium text size>go>place 1 2/2/12/10>', wave: 30, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
   N6: { pre: 'open>60>Medium text size>go>place 1 2/2/12/10>', wave: 60, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
+  D1: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT },
+  D2: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT, second: 'Scrolling', noOpen: true },
+  D3: { pre: '', wave: 0, steps: [150, ['jump 150>60>0', [150, 60, 0]]], z: 0, src: KEPT, noOpen: true },
 };
 
 async function session(S) {
@@ -80,8 +87,8 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   // The section as the oracle's last 'open' read found it; a blank section after it leaves one undo step under the plan's.
   const build = (P) => {
     const p = PLANS[P], o = read(P, `${p.pre}open`).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
-    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, size: SIZES[p.size], blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
-    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; if (W.size) t.blocks[0].size = W.size; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
+    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, size: SIZES[p.size], second: p.second || 'Text', blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, k === 1 ? W.second : 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; if (W.size) t.blocks[0].size = W.size; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
   };
   let ids = [];
   const OURS = () => `const s = fe.model.sections[0], bs = ${JSON.stringify(ids)}.map((id) => s.blocks.find((b) => b.id === id)), d = document.getElementById('site-frame').contentDocument, el = d.getElementById('block-' + bs[0].id), r = (v) => Math.round(v * 10) / 10; return JSON.stringify({ rows: s.rows[fe.bp], areas: bs.map((b) => b.layout.desktop.area.join('/') + '|' + b.layout.mobile.area.join('/')), line: r(el.querySelector('.marquee').getBoundingClientRect().height), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled], wave: (() => { const p = document.getElementById('block-panel'), w = p.querySelector('[data-scr-range="wave"]'); return !p.hidden && w ? w.value : null; })() });`;
@@ -100,7 +107,7 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
     qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(ids[0])}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
     await press('#block-panel [data-btab="Design"]');
     let k = `${p.pre}open`;
-    same(`Jump ${P}: ${k}`, read(P, k));
+    if (!p.noOpen) same(`Jump ${P}: ${k}`, read(P, k));
     for (const v of p.steps) {
       if (typeof v === 'number') {
         await press('#block-panel [data-scr-range="wave"]', v === 0 ? 0.005 : Math.min(0.995, v / 180)); await pause(1300);
