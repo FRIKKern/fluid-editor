@@ -399,6 +399,30 @@ evalJs(S, `(async () => { fe.setBp('desktop'); await new Promise((res) => setTim
   await edit('tnl'); got.push(tabNow());
   add('Edit opens on the tab its type last showed', JSON.stringify(got) === JSON.stringify(['Content', 'Design', 'Content', 'Animation', 'Design']), JSON.stringify(got));
 }
+// Real keys on the panel's tabs (CAP-T12TABKEYS.json T1 and T2, R2; R1 read alike): a Scrolling block, Edit, a real press on
+// Design (it keeps the focus), then ArrowRight, ArrowRight, ArrowLeft x3, and in a new panel ArrowLeft, End, Home, 1.2 s apart.
+// Each row: the focused tab and the open one as the oracle's read 1.2 s after the key, the block's area and Undo and Redo as
+// before the key.
+{
+  const TK = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12TABKEYS.json', import.meta.url))).runs.R2.tabs;
+  const bid = evalJs(S, `(async () => { const sleep = (ms) => new Promise((res) => setTimeout(res, ms)); fe.select(null); const next = JSON.parse(JSON.stringify(fe.model)); const s = next.sections[1]; s.blocks = []; s.rows = { desktop: 8, mobile: 8 }; fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling'); await sleep(300); const b = fe.model.sections[1].blocks.at(-1); fe.select(null); await sleep(100); fe.addBlock(s.id, 'Text'); await sleep(300); fe.select(null); await sleep(200); return JSON.stringify(b.id); })()`);
+  const now = () => evalJs(S, `(() => { const a = document.activeElement, b = fe.model.sections[1].blocks.find((x) => x.id === ${JSON.stringify(bid)}); return JSON.stringify({ focus: a?.dataset?.btab ?? a?.tagName ?? null, open: document.querySelector('#block-panel [data-btab].is-on')?.dataset.btab ?? null, area: b.layout.desktop.area.join('/'), undo: [!document.getElementById('undo').disabled, !document.getElementById('redo').disabled].join('/') }); })()`);
+  const oracle = (st) => ({ focus: st.focus[2], open: st.tabs.find((t) => t[2] === 'true')[0] });
+  for (const [plan, keys] of [['T1', ['ArrowRight', 'ArrowRight', 'ArrowLeft', 'ArrowLeft', 'ArrowLeft']], ['T2', ['ArrowLeft', 'End', 'Home']]]) {
+    evalJs(S, `(async () => { fe.select(${JSON.stringify(sid)}, ${JSON.stringify(bid)}); await new Promise((r) => setTimeout(r, 200)); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await new Promise((r) => setTimeout(r, 400)); return 'true'; })()`);
+    await pause(200);
+    const c = evalJs(S, `(() => { const r = document.querySelector('#block-panel [data-btab="Design"]').getBoundingClientRect(); return JSON.stringify([r.left + r.width / 2, r.top + r.height / 2]); })()`);
+    mouse(S, 'move', c[0], c[1]); await pause(60); mouse(S, 'down', c[0], c[1], { buttons: 1 }); await pause(40); mouse(S, 'up', c[0], c[1]); await pause(600);
+    const st = Object.fromEntries(TK[`R2 ${plan} open>tabkeys ${keys.join(',')}`].states), start = now();
+    add(`Tab keys ${plan}: Design pressed keeps the focus`, start.focus === oracle(st.start).focus && start.open === oracle(st.start).open, JSON.stringify([start, oracle(st.start)]));
+    for (const [i, k] of keys.entries()) {
+      browser(S, 'press', k); await pause(1200);
+      const w = now(), o = oracle(st[`${k} ${i + 1}`]);
+      add(`Tab keys ${plan}: ${k} ${i + 1}`, w.focus === o.focus && w.open === o.open && w.area === start.area && w.undo === start.undo, JSON.stringify([w, o, start.area, start.undo]));
+    }
+    evalJs(S, `(async () => { document.activeElement?.blur?.(); fe.select(null); await new Promise((r) => setTimeout(r, 300)); return 'true'; })()`);
+  }
+}
 writeFileSync(new URL('../parity/block-design-check.json', import.meta.url), JSON.stringify({ pass, total, results }, null, 2) + '\n');
 console.log(`\nBlock design: ${pass}/${total}`);
 process.exit(pass === total ? 0 : 1);
