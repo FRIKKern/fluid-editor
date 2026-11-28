@@ -25,6 +25,10 @@
 // focus and Undo and Redo, read in the key's own DevTools session. N plans (CAP-T12SIZEFALL.json, R2; R1 read alike): Text
 // Size Medium to Small with a Text block placed at 2/2/12/10, between the top and the new foot: it stays as the foot comes up
 // (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26).
+// Y plans (CAP-T12PHONESHARE.json, R2; R1 read alike), in the phone view, built there: two Text blocks under the Scrolling
+// block, the first one row up (Y1, Y3, Y4: 2/2/4/10) or on the top row made 1/2/3/6 with the second at 5/6/7/10 (Y2). When
+// the fall takes the first onto the foot, the second goes up by its move, not by the foot's: Y1 and Y2 150 then 0, Y3 90,
+// 180, 0, Y4 90 and a drag 90 out to 180 and 180 to 0 in one move. Each row checks the phone rows and areas.
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
