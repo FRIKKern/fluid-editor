@@ -294,7 +294,13 @@ export async function dragRows({ qs, press, add, pause, browser, mouse, S }) {
     await pause(600);
     k += `>drag ${p.name}`;
     same(`Drag ${P}: ${k}`, read(P, k));
-    if (p.key) { browser(S, 'press', p.key); await pause(1200); k += `>${p.key} x1 1200`; same(`Drag ${P}: ${k}`, read(P, k)); }
+    // bk, bo, bl, bn: the key row also holds the range's value and its focus to the oracle's state 1.2 s after the key (the
+    // value stays, the focus on the page).
+    if (p.key) {
+      browser(S, 'press', p.key); await pause(1200); k += `>${p.key} x1 1200`;
+      const st = p.mid ? MIDS[mr(p)].keys[`${mr(p)} ${p.od} ${k}`].states.find(([t]) => t === `${p.key} 1`)[1] : null;
+      same(`Drag ${P}: ${k}`, st ? { ...read(P, k), value: st.value, focus: st.focus.isRange } : read(P, k));
+    }
     qs(`fe.select(null); await sleep(300); return 'true';`);
     k += '>go';
     same(`Drag ${P}: ${k}`, read(P, k));
