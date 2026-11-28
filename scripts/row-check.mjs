@@ -3,7 +3,7 @@
 // Usage: npm run row-check (dev server on 5178, FLUID_SURFACE a cdp surface), under 2 min, writes nothing.
 // npm run row-check -- --full replays every read, about 9 min, and writes parity/row-check.json.
 import { readFileSync, writeFileSync } from 'node:fs';
-import { rowReplay } from './lib/row-replay.mjs';
+import { rowReplay, startGaps } from './lib/row-replay.mjs';
 
 const S = process.env.FLUID_SURFACE || 'surface:59';
 const FULL = process.argv.includes('--full');
@@ -20,6 +20,8 @@ for (const name of FULL ? ['CAP-Z3WALK', 'CAP-Z3PATH-EV', 'CAP-Z3PATH2-EV', 'CAP
   });
 }
 const pass = results.filter((r) => r.ok).length;
+// The spread of ours' starts against the oracle's, so a run on a slower machine shows how much of the window it used.
+if (startGaps.length) { const g = [...startGaps].sort((a, b) => a[0] - b[0]); for (const [d, n] of g) console.log(`START ${d} ${n}`); const ms = (v) => `${v > 0 ? '+' : ''}${v}`; console.log(`Starts: ours ${ms(g[0][0])} to ${ms(g.at(-1)[0])} ms from the oracle's over ${g.length} (earliest ${g[0][1]}; latest ${g.at(-1)[1]})`); }
 console.log(`Row drags: ${pass} of ${results.length} reads match`);
 if (FULL) writeFileSync(new URL('../parity/row-check.json', import.meta.url), JSON.stringify({ check: 'Layers row drags', pass, total: results.length, results }, null, 2) + '\n');
 process.exit(pass === results.length ? 0 : 1);

@@ -99,6 +99,8 @@ async function walk(S, label, path, drop) {
 
 const pressEscape = (S) => browser(S, 'press', 'Escape');
 const openLayers = (S) => evalJs(S, `(() => { const s = fe.model.sections[1]; fe.select(s.id, s.blocks[0].id); document.querySelector('button[data-sc="layers"]').click(); return 1; })()`);
+// How far each start of an event-timed read sits from the oracle's, ours less the oracle's in ms, for row-check to print.
+export const startGaps = [];
 // add(name, ok, detail). With no reads, as for predictions, ok is undefined and detail is what ours did.
 export async function rowReplay(S, finding, add) {
   viewport(S, 1600, 945);
@@ -134,6 +136,7 @@ export async function rowReplay(S, finding, add) {
       if (!r) { add(name, undefined, JSON.stringify(have)); continue; }
       const want = howItMoved(r.frames, label), win = startsIn(r.frames, r.t0);
       const bad = Object.keys(want).filter((k) => (k.endsWith(' at') ? !onTime(want[k], have[k], win) : !closeTo(want[k], have[k])));
+      if (r.t0 === 'event') for (const k of Object.keys(want)) if (k.endsWith(' at') && want[k] !== null && have[k] !== null) startGaps.push([have[k] - want[k], `${name}: ${k}`]);
       add(name, !bad.length, `oracle ${JSON.stringify(want)}, ours ${JSON.stringify(have)}`);
     } else if (op === 'press' && a[0] === 'Escape') { pressEscape(S);
     } else if (op === 'click' && a[0] === 'Open Layers Panel') { openLayers(S); await pause(200);
