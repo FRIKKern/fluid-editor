@@ -22,11 +22,11 @@
 // M plans (CAP-T12RANGEKEYS.json, R2; R1 read alike), JG's layout: a key on the range moves it at once and the blocks as a
 // press there: M1 Home from 180 (to 0, as JG), M2 End from 90 (to 180), M3 PageDown from 180 (150, one step: the first Text
 // block stays on the new foot), M4 PageUp from 90 (120: no area moves). The key's rows also check the range's value, its
-// focus and Undo and Redo, read in the key's own DevTools session. N plans (CAP-T12SIZEFALL.json, R2; R1 read alike): Text
-// Size Medium to Small with a Text block placed at 2/2/12/10, between the top and the new foot: it stays as the foot comes up
-// (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26). L plans (CAP-T12HANDFALL.json, R2; R1 read alike): a one-step
-// fall, 180 to 150, on the Scrolling block made 1/2/12/26 by hand (its line needs 1/2/7/26) takes one row, to 1/2/11/26, and a
-// Text block placed at 8/2/13/10 (L1), 8/2/12/10 (L2) or 6/2/12/10 (L3) stays.
+// focus and Undo and Redo 60 ms and 1.2 s after it, read in the key's own DevTools session. N plans (CAP-T12SIZEFALL.json,
+// R2; R1 read alike): Text Size Medium to Small with a Text block placed at 2/2/12/10, between the top and the new foot: it
+// stays as the foot comes up (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26). L plans (CAP-T12HANDFALL.json,
+// R2; R1 read alike): a one-step fall, 180 to 150, on the Scrolling block made 1/2/12/26 by hand (its line needs 1/2/7/26)
+// takes one row, to 1/2/11/26, and a Text block placed at 8/2/13/10 (L1), 8/2/12/10 (L2) or 6/2/12/10 (L3) stays.
 // D plans (CAP-T12DRAGKEPT.json, R2; R1 read alike): a drag that falls two steps or more in one move keeps a 2-row block's
 // rows as presses do (CAP-T12SHORT H): D1 150, 60, a drag 60 to 0 (1/2/3/26 stays, the Text block at 3/2/5/10); D2 the same
 // with a second Scrolling block (the phone stack turns, the second first, already while held); D3 150, a drag 150 to 60 to
@@ -141,7 +141,8 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
         continue;
       }
       // A key on the range: a press on its thumb at the value it shows, the key, the range's value, its focus and Undo and Redo
-      // 1.2 s after each, read in one DevTools session as the oracle's were.
+      // 1.2 s after the press, 60 ms after the key (the oracle's 'soon': the value has moved already) and 1.2 s after it, read
+      // in one DevTools session as the oracle's were.
       if (v[0] === 'key') {
         const key = v[1], c = await session(S), [x, y] = rangeX(Number(ours().wave));
         const want = Object.fromEntries(src(p).keys[`R2 ${P} ${k}>${key} x1 1200`].states);
@@ -155,7 +156,9 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
           sameKey(`Jump ${P}: ${k}, the thumb pressed`, await st(), want.pressed);
           await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key, code: key, windowsVirtualKeyCode: KC[key], nativeVirtualKeyCode: KC[key] });
           await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code: key, windowsVirtualKeyCode: KC[key], nativeVirtualKeyCode: KC[key] });
-          await sleep(1200);
+          await sleep(60);
+          sameKey(`Jump ${P}: ${k}, ${key} soon`, await st(), want[`${key} 1 soon`]);
+          await sleep(1140);
           sameKey(`Jump ${P}: ${k}, ${key}`, await st(), want[`${key} 1`]);
         } finally { c.close(); }
         k += `>${key} x1 1200`; same(`Jump ${P}: ${k}`, read(P, k));
