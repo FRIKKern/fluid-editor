@@ -28,7 +28,7 @@
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
-const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL');
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), SHARE = runs('CAP-T12PHONESHARE');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
 // pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
@@ -58,6 +58,12 @@ const PLANS = {
   N4: { pre: 'open>Medium text size>go>place 1 2/2/12/10>', wave: 0, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
   N5: { pre: 'open>30>Medium text size>go>place 1 2/2/12/10>', wave: 30, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
   N6: { pre: 'open>60>Medium text size>go>place 1 2/2/12/10>', wave: 60, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
+  // Y plans, in the phone view (CAP-T12PHONESHARE.json, R2; R1 read alike): the blocks under one that lands on the foot go up
+  // by its move, as on the desktop.
+  Y1: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [150, 0], z: 2, src: SHARE, phone: true },
+  Y2: { pre: 'mobile>arr ArrowUp ArrowUp>place 1 1/2/3/6>place 2 5/2/7/6>place 2 5/6/7/10>', wave: 0, steps: [150, 0], z: 2, src: SHARE, phone: true },
+  Y3: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [90, 180, 0], z: 3, src: SHARE, phone: true },
+  Y4: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [90, ['jump 180>0', [...OUT, 0]]], z: 2, src: SHARE, phone: true },
 };
 
 async function session(S) {
@@ -80,7 +86,9 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   // The section as the oracle's last 'open' read found it; a blank section after it leaves one undo step under the plan's.
   const build = (P) => {
     const p = PLANS[P], o = read(P, `${p.pre}open`).layout, me = o.all.find((b) => b.me), others = o.all.filter((b) => !b.me);
-    const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, wave: p.wave, size: SIZES[p.size], blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
+    // A phone plan's 'open' read has the phone rows; the desktop's are the section's as built.
+    const rows = p.phone ? { desktop: read(P, 'default').layout.rows, mobile: o.rows } : { desktop: o.rows, mobile: 4 };
+    const spec = JSON.stringify({ rows, wave: p.wave, size: SIZES[p.size], blocks: [me, ...others].map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     return qs(`const W = ${spec}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); for (let k = 1; k < W.blocks.length; k++) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); if (W.wave) t.blocks[0].wave = W.wave; if (W.size) t.blocks[0].size = W.size; fe.load(m); await sleep(300); fe.addSection(); await sleep(300); return JSON.stringify(t.blocks.map((b) => b.id));`);
   };
   let ids = [];
@@ -96,6 +104,7 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
   const rangeX = (v) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${Math.min(0.995, Math.max(0.005, v / 180))}, r.top + r.height / 2]);`);
   for (const [P, p] of Object.entries(PLANS)) {
     ids = build(P);
+    if (p.phone) qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
     const sid = qs(`return JSON.stringify(fe.model.sections[0].id);`);
     qs(`fe.select(${JSON.stringify(sid)}, ${JSON.stringify(ids[0])}); await sleep(200); document.querySelector('#block-toolbar [data-tb="edit"]').click(); await sleep(600); return 'true';`);
     await press('#block-panel [data-btab="Design"]');

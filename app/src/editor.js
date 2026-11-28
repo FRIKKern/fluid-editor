@@ -4392,12 +4392,17 @@ function scrollRows(b, a, need, live, stay = false, s = S(sel.sid)) {
     // 10/2/12/10 and 12/2/14/10, and a press 90 then 180 takes one from 6/2/8/10 or 8/2/10/10 down by 2 and 2 more
     // (CAP-T12HELD.json W, X and Y, R1 and R2 alike); after the way back took them up, the growth out again takes them down
     // (CAP-T12DRAGFALL.json WT and WD). Not read: a growth after a fall of the value that left the foot where it was.
-    // On a desktop fall the blocks that follow go up together: when one lands on the foot, the others go up by its move, not
-    // by the foot's. 180 to 0 takes 1/2/7/26 to 1/2/2/26, a Text block from 5/2/7/10 onto the foot at 2/2/4/10 and one at
+    // On a fall the blocks that follow go up together: when one lands on the foot, the others go up by its move, not by the
+    // foot's. 180 to 0 takes 1/2/7/26 to 1/2/2/26, a Text block from 5/2/7/10 onto the foot at 2/2/4/10 and one at
     // 12/2/14/10 to 9/2/11/10, not 7/2/9/10, also one in other columns, 12/14/14/20 to 9/14/11/20 (CAP-T12DRAGJUMP.json JC
-    // by a drag and JG by presses, CAP-T12FALLZERO.json K1 and K2, R1 and R2 alike). Not read: the phone view, two blocks
-    // that would land on the foot from different rows.
-    const up = stay ? Math.max(dy, ...below.map((o) => o.layout[bp].area[0]).filter((t) => t + dy <= a[0]).map((t) => foot - t)) : dy;
+    // by a drag and JG by presses, CAP-T12FALLZERO.json K1 and K2, R1 and R2 alike). The phone view does the same: with
+    // the first Text block on the second row (2/2/4/10), 150 then 0 takes 1/2/7/10 to 1/2/2/10, it from 6/2/8/10 onto the
+    // foot at 2/2/4/10 and the second from 9/2/11/10 to 5/2/7/10, not 4/2/6/10; 90, 180 and 0, by presses or a drag 180 to
+    // 0 in one move, take the second from 10/2/12/10 to 5/2/7/10; the first on the top row made 1/2/3/6 and the second at
+    // 5/6/7/10, in other columns, 150 then 0 take them from 5/2/7/6 and 9/6/11/10 to 2/2/4/6 and 6/6/8/10
+    // (CAP-T12PHONESHARE.json Y1 to Y4, R1 and R2 alike). Not read: two blocks that would land on the foot from different
+    // rows, a phone fall by Text Size.
+    const up = Math.max(dy, ...below.map((o) => o.layout[bp].area[0]).filter((t) => t + dy <= a[0]).map((t) => foot - t));
     for (const o of below) { const q = o.layout[bp].area, h = q[2] - q[0], top = q[0] + up <= a[0] ? foot : q[0] + up; q[0] = top; q[2] = top + h; }
     if (bp === 'mobile' && dy) footAt = '';
     s.rows[bp] = r0 + low() - l0;
