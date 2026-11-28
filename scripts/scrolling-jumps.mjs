@@ -24,7 +24,9 @@
 // block stays on the new foot), M4 PageUp from 90 (120: no area moves). The key's rows also check the range's value, its
 // focus and Undo and Redo, read in the key's own DevTools session. N plans (CAP-T12SIZEFALL.json, R2; R1 read alike): Text
 // Size Medium to Small with a Text block placed at 2/2/12/10, between the top and the new foot: it stays as the foot comes up
-// (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26).
+// (N4 at Wave 0 to 1/2/2/26, N5 at 30 and N6 at 60 to 1/2/3/26). L plans (CAP-T12HANDFALL.json, R2; R1 read alike): a one-step
+// fall, 180 to 150, on the Scrolling block made 1/2/12/26 by hand (its line needs 1/2/7/26) takes one row, to 1/2/11/26, and a
+// Text block placed at 8/2/13/10 (L1), 8/2/12/10 (L2) or 6/2/12/10 (L3) stays.
 // Y plans (CAP-T12PHONESHARE.json, R2; R1 read alike), in the phone view, built there: two Text blocks under the Scrolling
 // block, the first one row up (Y1, Y3, Y4: 2/2/4/10) or on the top row made 1/2/3/6 with the second at 5/6/7/10 (Y2). When
 // the fall takes the first onto the foot, the second goes up by its move, not by the foot's: Y1 and Y2 150 then 0, Y3 90,
@@ -32,11 +34,12 @@
 import { readFileSync } from 'node:fs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
-const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), SHARE = runs('CAP-T12PHONESHARE');
+const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL'), SHARE = runs('CAP-T12PHONESHARE');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
 // pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
 const J = 'place 2 8/2/10/10>';
+const L = (t) => `open>180>go>place 0 1/2/12/26>place 1 ${t}>`;
 const SIZES = { M: 4 };
 const KC = { PageUp: 33, PageDown: 34, End: 35, Home: 36 };
 const PLANS = {
@@ -62,6 +65,9 @@ const PLANS = {
   N4: { pre: 'open>Medium text size>go>place 1 2/2/12/10>', wave: 0, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
   N5: { pre: 'open>30>Medium text size>go>place 1 2/2/12/10>', wave: 30, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
   N6: { pre: 'open>60>Medium text size>go>place 1 2/2/12/10>', wave: 60, size: 'M', steps: ['Small text size'], z: 1, src: SIZE },
+  L1: { pre: L('8/2/13/10'), wave: 180, steps: [150], z: 1, src: HAND },
+  L2: { pre: L('8/2/12/10'), wave: 180, steps: [150], z: 1, src: HAND },
+  L3: { pre: L('6/2/12/10'), wave: 180, steps: [150], z: 1, src: HAND },
   // Y plans, in the phone view (CAP-T12PHONESHARE.json, R2; R1 read alike): the blocks under one that lands on the foot go up
   // by its move, as on the desktop.
   Y1: { pre: 'mobile>arr ArrowUp>', wave: 0, steps: [150, 0], z: 2, src: SHARE, phone: true },

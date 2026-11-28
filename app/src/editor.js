@@ -2562,13 +2562,27 @@ blockPanel.addEventListener('click', (e) => {
   const t = e.target.closest('[data-btab]');
   if (!t) return;
   designTab = t.dataset.btab;
-  const tb = sel && B(sel.sid, sel.bid);
+  const tb = sel && B(sel.sid, sel.bid), had = document.activeElement === t;
   if (tb) tabOfType.set(tb.standin || tb.type, designTab);
   closeLinkPopover();
   closeShapePop(); // CAP-T7DESIGN.json
   renderBlockPanel();
+  // A press keeps the focus on the tab it opened, through the redraw (CAP-T12DRAGMID.json TK, CAP-T12TABKEYS.json).
+  if (had) blockPanel.querySelector(`[data-btab="${designTab}"]`)?.focus();
 });
 
+// ArrowRight and ArrowLeft on a focused tab of the block panel move the focus to the next tab or the one before, round from
+// the last to the first and back, and open it, already 60 ms after the key; no block moves and Undo and Redo stay. Home and
+// End do nothing (CAP-T12TABKEYS.json T1 and T2, R1 and R2 alike, a Scrolling block's Content, Design and Animation tabs;
+// CAP-T12DRAGMID.json TK). Not read: ArrowUp and ArrowDown, another block kind's tabs (inferred), the phone view.
+blockPanel.addEventListener('keydown', (e) => {
+  const t = e.target.closest?.('[data-btab]');
+  if (!t || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+  e.preventDefault(); e.stopPropagation();
+  const tabs = [...t.parentElement.querySelectorAll('[data-btab]')], to = tabs[(tabs.indexOf(t) + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length].dataset.btab;
+  tabs.find((x) => x.dataset.btab === to).click();
+  blockPanel.querySelector(`[data-btab="${to}"]`)?.focus();
+});
 // Drag the panel by its header (U13). Tabs and other controls in the header still click. The panel
 // holds the pointer: over the canvas iframe the moves would otherwise go to the iframe and the panel stop.
 blockPanel.addEventListener('pointerdown', (e) => {
@@ -4303,10 +4317,15 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // block at 8/2/10/10 to 5/2/7/10; Small then 1/2/5/26, the Text block staying on the new foot (CAP-T12SHORT I, R3 and R4;
   // CAP-T12SHORTFALL IB, two sessions). Not read: a fall from 3 rows or more to a line that still needs them all, a Text Size
   // fall under 60 px (it refits, as before), Text Size in the phone view.
+  // A fall of one step on a block made taller by hand (more rows than its line needed before the step) takes the same rule:
+  // 1/2/12/26 at 180 (a line that needs 1/2/7/26), 150 takes it to 1/2/11/26, one row, not to the 1/2/6/26 that holds the
+  // new line, and a Text block placed at 8/2/13/10, 8/2/12/10 or 6/2/12/10 stays (CAP-T12HANDFALL.json L1 to L3, R1 and R2
+  // alike). Not read: a drag or a key through such a step, a block made taller by hand in other columns.
   const sized = bp === 'desktop' && w === w0 && /^Text size /.test(label);
+  const tall = !phone && w !== w0 && fall > 0 && rows0 > Math.max(1, Math.ceil((c0 + m.rg) / m.pitch - 0.02));
   if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
   else if (phone) need = fall < 0 ? Math.max(rows0, fit) : fit;
-  else if ((w !== w0 || sized) && fall >= m.pitch) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
+  else if ((w !== w0 || sized) && (fall >= m.pitch || tall)) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
   else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
   else if (w !== w0 && fall < 0) need = Math.max(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
