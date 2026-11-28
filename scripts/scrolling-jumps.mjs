@@ -34,6 +34,10 @@
 // each, read in the keys' own DevTools session), six presses (A3) or one press (A4). Each step takes one row, to 1/2/6/26,
 // where one press 180 to 0 leaves 1/2/7/26. A has the Text block in other columns (1/14/3/20); B has it at 8/2/13/10: it
 // stays until the foot is above its top, then goes up with it, to 6/2/11/10.
+// E1 (CAP-T12SNUGFALL.json, R2; R1 read alike), at a 1100 window (rows 21.75 px, pitch 32.75): presses 180 down to 0 one
+// step at a time on the block as added, snug: a one-step fall moves the foot up by the line's fall, snapped to the pitch,
+// as a bigger fall does (150 leaves 1/2/6/26 for a line that needs 1/2/7/26). One Cmd+Z row: the next ones give back a
+// line that ran over with the rows refitted to it, which the desktop does not do yet (task-b4fedc8255866002).
 // D plans (CAP-T12DRAGKEPT.json, R2; R1 read alike): a drag that falls two steps or more in one move keeps a 2-row block's
 // rows as presses do (CAP-T12SHORT H): D1 150, 60, a drag 60 to 0 (1/2/3/26 stays, the Text block at 3/2/5/10); D2 the same
 // with a second Scrolling block (the phone stack turns, the second first, already while held); D3 150, a drag 150 to 60 to
@@ -44,9 +48,11 @@
 // the fall takes the first onto the foot, the second goes up by its move, not by the foot's: Y1 and Y2 150 then 0, Y3 90,
 // 180, 0, Y4 90 and a drag 90 out to 180 and 180 to 0 in one move. Each row checks the phone rows and areas.
 import { readFileSync } from 'node:fs';
+import { viewport } from './lib/cmux.mjs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
 const STEPS = runs('CAP-T12HANDSTEPS');
+const SNUG = runs('CAP-T12SNUGFALL');
 const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL'), KEPT = runs('CAP-T12DRAGKEPT'), SHARE = runs('CAP-T12PHONESHARE');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
@@ -88,6 +94,7 @@ const PLANS = {
   A4: { pre: L('1/14/3/20'), wave: 180, steps: [0], z: 1, src: STEPS },
   B1: { pre: L('8/2/13/10'), wave: 180, steps: [['slow 180>0', [180, 150, 120, 90, 60, 30, 0]]], z: 1, src: STEPS },
   B2: { pre: L('8/2/13/10'), wave: 180, steps: [['keys', 'ArrowLeft', 6]], z: 6, src: STEPS },
+  E1: { pre: '', wave: 0, steps: [180, 150, 120, 90, 60, 30, 0], z: 1, src: SNUG, win: 1100 },
   D1: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT },
   D2: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT, second: 'Scrolling', noOpen: true },
   D3: { pre: '', wave: 0, steps: [150, ['jump 150>60>0', [150, 60, 0]]], z: 0, src: KEPT, noOpen: true },
@@ -146,6 +153,8 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
     return `${k}>${v}`;
   };
   for (const [P, p] of Object.entries(PLANS)) {
+    // win: the plan's window width (the oracle's), back to 1600 after it.
+    if (p.win) { viewport(S, p.win, 1000); await pause(1200); }
     ids = build(P);
     if (p.phone) qs(`fe.setBp('mobile'); await sleep(800); return 'true';`);
     const sid = qs(`return JSON.stringify(fe.model.sections[0].id);`);
@@ -245,6 +254,7 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
       qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
       k += '>Z'; same(`Jump ${P}: ${k}`, read(P, k));
     }
+    if (p.win) { viewport(S, 1600, 1000); await pause(1200); }
   }
   qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
 }
