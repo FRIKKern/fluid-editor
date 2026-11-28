@@ -29,6 +29,11 @@
 // placed in the model. L plans (CAP-T12HANDFALL.json, R2; R1 read alike): a one-step fall, 180 to 150, on the Scrolling block
 // made 1/2/12/26 by hand (its line needs 1/2/7/26) takes one row, to 1/2/11/26, and a Text block placed at 8/2/13/10 (L1),
 // 8/2/12/10 (L2) or 6/2/12/10 (L3) stays.
+// A and B plans (CAP-T12HANDSTEPS.json, R2; R1 read alike): L's block made 1/2/12/26 by hand at 180, then 180 down to 0 one
+// step at a time: a drag one value at a time (A1, B1), six ArrowLeft keys 1.2 s apart (A2, B2; a row 60 ms and 1.2 s after
+// each, read in the keys' own DevTools session), six presses (A3) or one press (A4). Each step takes one row, to 1/2/6/26,
+// where one press 180 to 0 leaves 1/2/7/26. A has the Text block in other columns (1/14/3/20); B has it at 8/2/13/10: it
+// stays until the foot is above its top, then goes up with it, to 6/2/11/10.
 // E1 (CAP-T12SNUGFALL.json, R2; R1 read alike), at a 1100 window (rows 21.75 px, pitch 32.75): presses 180 down to 0 one
 // step at a time on the block as added, snug: a one-step fall moves the foot up by the line's fall, snapped to the pitch,
 // as a bigger fall does (150 leaves 1/2/6/26 for a line that needs 1/2/7/26). One Cmd+Z row: the next ones give back a
@@ -46,6 +51,7 @@ import { readFileSync } from 'node:fs';
 import { viewport } from './lib/cmux.mjs';
 
 const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.json`, import.meta.url))).runs.R2;
+const STEPS = runs('CAP-T12HANDSTEPS');
 const SNUG = runs('CAP-T12SNUGFALL');
 const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL'), KEPT = runs('CAP-T12DRAGKEPT'), SHARE = runs('CAP-T12PHONESHARE');
 const OUT = [90, 120, 150, 180];
@@ -54,7 +60,7 @@ const R0 = [0, 30, 60, 90, 120, 150, 180];
 // 'open'); steps: a press value or [drag name, values].
 const J = 'place 2 8/2/10/10>';
 const L = (t) => `open>180>go>place 0 1/2/12/26>place 1 ${t}>`;
-const KC = { PageUp: 33, PageDown: 34, End: 35, Home: 36 };
+const KC = { PageUp: 33, PageDown: 34, End: 35, Home: 36, ArrowLeft: 37 };
 const PLANS = {
   JA: { pre: J, wave: 0, steps: [90, ['jump 180>90', [...OUT, 90]]], z: 2 },
   JB: { pre: J, wave: 0, steps: [90, ['jump 180>120 out', [...OUT, 120, 180]]], z: 2 },
@@ -82,6 +88,12 @@ const PLANS = {
   L1: { pre: L('8/2/13/10'), wave: 180, steps: [150], z: 1, src: HAND },
   L2: { pre: L('8/2/12/10'), wave: 180, steps: [150], z: 1, src: HAND },
   L3: { pre: L('6/2/12/10'), wave: 180, steps: [150], z: 1, src: HAND },
+  A1: { pre: L('1/14/3/20'), wave: 180, steps: [['slow 180>0', [180, 150, 120, 90, 60, 30, 0]]], z: 1, src: STEPS },
+  A2: { pre: L('1/14/3/20'), wave: 180, steps: [['keys', 'ArrowLeft', 6]], z: 6, src: STEPS },
+  A3: { pre: L('1/14/3/20'), wave: 180, steps: [150, 120, 90, 60, 30, 0], z: 6, src: STEPS },
+  A4: { pre: L('1/14/3/20'), wave: 180, steps: [0], z: 1, src: STEPS },
+  B1: { pre: L('8/2/13/10'), wave: 180, steps: [['slow 180>0', [180, 150, 120, 90, 60, 30, 0]]], z: 1, src: STEPS },
+  B2: { pre: L('8/2/13/10'), wave: 180, steps: [['keys', 'ArrowLeft', 6]], z: 6, src: STEPS },
   E1: { pre: '', wave: 0, steps: [180, 150, 120, 90, 60, 30, 0], z: 1, src: SNUG, win: 1100 },
   D1: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT },
   D2: { pre: '', wave: 0, steps: [150, 60, ['jump 60>0', [60, 0]]], z: 0, src: KEPT, second: 'Scrolling', noOpen: true },
@@ -190,6 +202,30 @@ export async function jumpRows({ qs, press, add, pause, browser, mouse, S }) {
           sameKey(`Jump ${P}: ${k}, ${key}`, await st(), want[`${key} 1`]);
         } finally { c.close(); }
         k += `>${key} x1 1200`; same(`Jump ${P}: ${k}`, read(P, k));
+        continue;
+      }
+      // Keys on the range (A2, B2): a press on its thumb at the value it shows, then n keys 1.2 s apart, a row 60 ms and 1.2 s
+      // after each (areas, rows, line, Undo and Redo, the range's value), read in one DevTools session as the oracle's were.
+      if (v[0] === 'keys') {
+        const [, key, n] = v, c = await session(S), [x, y] = rangeX(Number(ours().wave));
+        const want = Object.fromEntries(src(p).keys[`R2 ${P} ${k}>${key} x${n} 1200`].states);
+        const oursIn = async () => JSON.parse((await c.send('Runtime.evaluate', { expression: `(async () => { ${OURS()} })()`, awaitPromise: true, returnByValue: true })).result.result.value);
+        const as = (q) => ({ layout: q.L, wave: [q.st.value] });
+        try {
+          await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y, button: 'none', buttons: 0 }); await sleep(200);
+          await c.send('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 }); await sleep(80);
+          await c.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', buttons: 0, clickCount: 1 }); await sleep(1200);
+          same(`Jump ${P}: ${k}, the thumb pressed`, as(want.pressed), await oursIn());
+          for (let i = 1; i <= n; i++) {
+            await c.send('Input.dispatchKeyEvent', { type: 'rawKeyDown', key, code: key, windowsVirtualKeyCode: KC[key], nativeVirtualKeyCode: KC[key] });
+            await c.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code: key, windowsVirtualKeyCode: KC[key], nativeVirtualKeyCode: KC[key] });
+            await sleep(60);
+            same(`Jump ${P}: ${k}, ${key} ${i} soon`, as(want[`${key} ${i} soon`]), await oursIn());
+            await sleep(1140);
+            same(`Jump ${P}: ${k}, ${key} ${i}`, as(want[`${key} ${i}`]), await oursIn());
+          }
+        } finally { c.close(); }
+        k += `>${key} x${n} 1200`; same(`Jump ${P}: ${k}`, read(P, k));
         continue;
       }
       // A drag: pressed on its first value, a move to each next 300 ms apart, a row 80 ms after each, let go right after the last row.
