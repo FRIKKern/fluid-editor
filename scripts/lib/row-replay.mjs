@@ -51,11 +51,13 @@ const closeTo = (a, b) => { const [p, q] = [a, b].map((x) => x.split(' ')); retu
 // rowFrames), so its start after the move is at most its time, and at least its time less the read's first change
 // of anything (the move came before that). Ours run from the move. One of the oracle's frames either way, for the
 // frame each side first sees it in. A drop whose slot goes 400 ms late read 'goes' and passed before.
-// A read timed from the event itself (t0 'event', CAP-Z3SCORE-EV) has its start after the move as ours do: then the window
-// is three of its frames each side (its slot comes 7 to 34 ms after the event, a drop's going 7 to 24 ms; ours 0 to 31).
+// A read timed from the event itself (t0 'event', the -EV reads) has its start after the move as ours do: then the window
+// is three of its frames early and two late. Ours sat 33 ms early to 9 ms late locally and 24 early to 12 late on hosted
+// CI (row-check's Starts line). Two frames late fails a drop whose slot goes 40 ms late ('Line up 30, back to 5, dropped');
+// three passed it.
 function startsIn(oracle, t0) {
   const gaps = oracle.slice(1).map((f, j) => f[0] - oracle[j][0]).sort((a, b) => a - b), frame = gaps[Math.floor(gaps.length / 2)];
-  if (t0 === 'event') return { lo: 3 * frame, hi: 3 * frame };
+  if (t0 === 'event') return { lo: 3 * frame, hi: 2 * frame };
   const firsts = [];
   for (const k of [1, 2]) {
     const key = (f) => JSON.stringify(f[k]);
