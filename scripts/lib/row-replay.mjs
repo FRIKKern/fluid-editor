@@ -53,8 +53,8 @@ const closeTo = (a, b) => { const [p, q] = [a, b].map((x) => x.split(' ')); retu
 // frame each side first sees it in. A drop whose slot goes 400 ms late read 'goes' and passed before.
 // A read timed from the event itself (t0 'event', the -EV reads) has its start after the move as ours do: then the window
 // is three of its frames early and two late. Ours sat 33 ms early to 9 ms late locally and 24 early to 12 late on hosted
-// CI (row-check's Starts line). Two frames late fails a drop whose slot goes 40 ms late ('Line up 30, back to 5, dropped');
-// three passed it.
+// CI (row-check's Starts line). At two frames late, a drop whose slot goes 40 ms late fails 'Shape down 100, dropped' in
+// every run; three let that read pass, and caught the drop only now and then on another read, at the edge.
 function startsIn(oracle, t0) {
   const gaps = oracle.slice(1).map((f, j) => f[0] - oracle[j][0]).sort((a, b) => a - b), frame = gaps[Math.floor(gaps.length / 2)];
   if (t0 === 'event') return { lo: 3 * frame, hi: 2 * frame };
