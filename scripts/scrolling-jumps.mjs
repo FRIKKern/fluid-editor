@@ -35,7 +35,8 @@ const runs = (f) => JSON.parse(readFileSync(new URL(`../parity/findings/${f}.jso
 const JUMP = runs('CAP-T12DRAGJUMP'), GROW = runs('CAP-T12GROWSHORT'), ZERO = runs('CAP-T12FALLZERO'), KEYS = runs('CAP-T12RANGEKEYS'), SIZE = runs('CAP-T12SIZEFALL'), HAND = runs('CAP-T12HANDFALL');
 const OUT = [90, 120, 150, 180];
 const R0 = [0, 30, 60, 90, 120, 150, 180];
-// pre: the oracle's steps before the last 'open'; wave: the Wave Intensity there; steps: a press value or [drag name, values].
+// pre: the oracle's steps before the last 'open'; wave: the Wave Intensity the build sets (there, or with first at the first
+// 'open'); steps: a press value or [drag name, values].
 const J = 'place 2 8/2/10/10>';
 const L = (t) => `open>180>go>place 0 1/2/12/26>place 1 ${t}>`;
 const KC = { PageUp: 33, PageDown: 34, End: 35, Home: 36 };
