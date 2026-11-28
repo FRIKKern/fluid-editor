@@ -15,6 +15,7 @@ import { readFileSync } from 'node:fs';
 
 const OK = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12WAVEKEYS.json', import.meta.url))).runs.R2;
 const JOIN = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12KEYJOIN.json', import.meta.url))).runs;
+const FRAME = JSON.parse(readFileSync(new URL('../parity/findings/CAP-T12FRAMEKEYS.json', import.meta.url))).runs.R2;
 const CODE = { ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40, z: 90 };
 // Plan: the view, the press (none: from the value as added), then [key, times, gap ms, no thumb press first] for each run
 // of keys, a seq of [key, modifiers (4 Meta, 8 Shift), gap ms] after them, and the Cmd+Z count. od: the finding's plan.
@@ -26,10 +27,14 @@ const PLANS = {
   Jk: { od: 'J', phone: false, press: null, keys: [], seq: { name: 'R L', noPressedRow: true, keys: [['ArrowRight', 0, 300], ['ArrowLeft', 0, 300]] }, z: 0 },
   Lk: { od: 'L', phone: false, press: 90, keys: [], seq: { name: 'R L', keys: [['ArrowRight', 0, 300], ['ArrowLeft', 0, 300]] }, z: 2 },
   Mk: { od: 'M', phone: false, press: 90, keys: [['ArrowRight', 1, 1200]], seq: { name: 'z Z R', noThumb: true, keys: [['z', 4, 300], ['z', 12, 300], ['ArrowRight', 0, 300]] }, z: 3 },
+  // F1, F2 (CAP-T12FRAMEKEYS.json, R2; R1 read alike): 90, then the focus put in the page's frame (no thumb press, the panel
+  // open) and one real ArrowRight (F1) or ArrowDown (F2): nothing moves, the value stays, the focus stays in the frame.
+  F1: { frame: true, phone: false, press: 90, keys: [['ArrowRight', 1, 1200, true]], z: 1 },
+  F2: { frame: true, phone: false, press: 90, keys: [['ArrowDown', 1, 1200, true]], z: 1 },
   Nk: { od: 'N', run: 'R8', phone: false, press: 90, keys: [], seq: { name: 'R z Z R', keys: [['ArrowRight', 0, 200], ['z', 4, 200], ['z', 12, 200], ['ArrowRight', 0, 200]] }, z: 3 },
 };
 // The finding and run a plan reads from: CAP-T12WAVEKEYS R2, or CAP-T12KEYJOIN (R6 unless the plan names its run) with od.
-const src = (P) => { const p = PLANS[P], r = p.run || 'R6'; return p.od ? [JOIN[r], `${r} ${p.od}`] : [OK, `R2 ${P}`]; };
+const src = (P) => { const p = PLANS[P], r = p.run || 'R6'; return p.od ? [JOIN[r], `${r} ${p.od}`] : [p.frame ? FRAME : OK, `R2 ${P}`]; };
 const readOf = (P, k) => { const [f, t] = src(P); return f.reads[`${t} ${k}`]; };
 const keysOf = (P, k) => { const [f, t] = src(P); return f.keys[`${t} ${k}`].states; };
 
@@ -54,15 +59,16 @@ export async function keyRows({ qs, press, add, pause, browser, mouse, S }) {
     const spec = JSON.stringify({ rows: { desktop: o.rows, mobile: 4 }, blocks: [me, other].filter(Boolean).map((b) => ({ desktop: area(b.desktop), mobile: area(b.phone) })) });
     qs(`const W = ${spec}, text = ${!PLANS[P].alone}; const next = JSON.parse(JSON.stringify(fe.model)); next.sections = [next.sections[0]]; const s = next.sections[0]; s.rows = { ...W.rows }; s.blocks = []; s.phoneFollows = true; delete s.phoneStop; delete s.phoneEdited; fe.setBp('desktop'); fe.load(next); await sleep(300); fe.addBlock(s.id, 'Scrolling', true); await sleep(300); if (text) { fe.addBlock(s.id, 'Text', true); await sleep(300); } const m = JSON.parse(JSON.stringify(fe.model)), t = m.sections[0]; t.rows = { ...W.rows }; t.blocks.forEach((b, k) => { b.layout.desktop.area = W.blocks[k].desktop; b.layout.mobile.area = W.blocks[k].mobile; }); fe.load(m); await sleep(300); return 'true';`);
   };
-  // The panel's range, the focus and Undo and Redo, as one expression for the DevTools session.
-  const STATE = `(() => { const r = document.querySelector('#block-panel [data-scr-range="wave"]'), u = document.getElementById('undo'), z = document.getElementById('redo'); return JSON.stringify({ value: r ? r.value : null, focus: !!r && document.activeElement === r, undo: [!!u && !u.disabled, !!z && !z.disabled] }); })()`;
+  // The panel's range, the focus and Undo and Redo, as one expression for the DevTools session. inFrame: the tag of the
+  // element focused inside the page's frame; with the frame focused, the oracle's is its BODY (CAP-T12FRAMEKEYS frameFocus).
+  const STATE = `(() => { const r = document.querySelector('#block-panel [data-scr-range="wave"]'), u = document.getElementById('undo'), z = document.getElementById('redo'); return JSON.stringify({ value: r ? r.value : null, focus: !!r && document.activeElement === r, frame: document.activeElement === document.getElementById('site-frame'), inFrame: document.getElementById('site-frame').contentDocument.activeElement?.tagName ?? null, undo: [!!u && !u.disabled, !!z && !z.disabled] }); })()`;
   const ours = () => qs(`const s = fe.model.sections[0], a = s.blocks.find((b) => b.type === 'scrolling'), el = document.getElementById('site-frame').contentDocument.getElementById('block-' + a.id), r = (v) => Math.round(v * 10) / 10; const t = s.blocks.find((b) => b !== a); return JSON.stringify({ me: [a.layout.desktop.area.join('/'), a.layout.mobile.area.join('/')], text: t ? [t.layout.desktop.area.join('/'), t.layout.mobile.area.join('/')] : null, line: r(el.querySelector('.marquee').getBoundingClientRect().height), wave: (fe.bp === 'mobile' ? a.waveMobile ?? a.wave : a.wave) ?? 0 });`);
   const same = (what, read) => {
     const o = read.layout, w = ours(), me = o.all.find((b) => b.me), t = o.all.find((b) => !b.me), text = t ? [t.desktop, t.phone] : null;
     const ok = w.me[0] === me.desktop && w.me[1] === me.phone && JSON.stringify(w.text) === JSON.stringify(text) && near1(w.line, o.marquee[1]) && (!read.wave || String(w.wave) === read.wave[0]);
     add(what, ok, `${JSON.stringify(w)} (oracle ${JSON.stringify({ me: [me.desktop, me.phone], text, line: o.marquee[1], wave: read.wave?.[0] ?? null })})`);
   };
-  const sameKey = (what, w, o) => add(what, w.value === o.value && w.focus === o.focus.isRange && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1], `${JSON.stringify(w)} (oracle ${JSON.stringify({ value: o.value, focus: o.focus.isRange, undo: o.undo })})`);
+  const sameKey = (what, w, o) => add(what, w.value === o.value && w.focus === o.focus.isRange && (o.focus.tag !== 'IFRAME' || (w.frame && w.inFrame === o.focus.frameFocus.split('.')[0])) && w.undo[0] === o.undo[0] && w.undo[1] === o.undo[1], `${JSON.stringify(w)} (oracle ${JSON.stringify({ value: o.value, focus: o.focus.isRange, frame: o.focus.tag === 'IFRAME', inFrame: o.focus.tag === 'IFRAME' ? o.focus.frameFocus.split('.')[0] : undefined, undo: o.undo })})`);
   // Where press() put the Wave press: pressed again there, the range keeps its value, as a press on the oracle's thumb.
   const rangeAt = (fx) => qs(`const e = document.querySelector('#block-panel [data-scr-range="wave"]'); e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(); return JSON.stringify([r.left + r.width * ${fx}, r.top + r.height / 2]);`);
   for (const [P, p] of Object.entries(PLANS)) {
@@ -79,6 +85,8 @@ export async function keyRows({ qs, press, add, pause, browser, mouse, S }) {
       k += `>${key} x${n} ${gap}`;
       const want = keysOf(P, k), c = await session(S);
       try {
+        // The frame's window focused by script, as the oracle's (its body then has the focus), and a row for it.
+        if (p.frame) { await c.ev(`(() => { document.getElementById('site-frame').contentWindow.focus(); return 'true'; })()`); await sleep(400); sameKey(`Keys ${P}: ${k}, the focus in the frame`, await c.ev(STATE), want.find(([t]) => t === 'pressed')[1]); }
         if (!noThumb) {
                     const [x, y] = rangeAt(fx);
           await c.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y, button: 'none', buttons: 0 }); await sleep(200);
@@ -124,7 +132,7 @@ export async function keyRows({ qs, press, add, pause, browser, mouse, S }) {
     k += '>go'; same(`Keys ${P}: ${k}`, readOf(P, k));
     for (let i = 0; i < p.z; i++) {
       qs(`document.activeElement?.blur?.(); return 'true';`); mouse(S, 'move', 10, 10); browser(S, 'press', 'Meta+z'); await pause(400);
-      k += '>z'; same(`Keys ${P}: ${k}`, readOf(P, k.replace(/>z/g, PLANS[P].od ? '>Z' : '>z')));
+      k += '>z'; same(`Keys ${P}: ${k}`, readOf(P, k.replace(/>z/g, PLANS[P].od || PLANS[P].frame ? '>Z' : '>z')));
     }
     qs(`fe.select(null); fe.setBp('desktop'); await sleep(400); return 'true';`);
   }
