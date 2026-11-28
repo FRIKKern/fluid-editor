@@ -51,17 +51,20 @@ const closeTo = (a, b) => { const [p, q] = [a, b].map((x) => x.split(' ')); retu
 // rowFrames), so its start after the move is at most its time, and at least its time less the read's first change
 // of anything (the move came before that). Ours run from the move. One of the oracle's frames either way, for the
 // frame each side first sees it in. A drop whose slot goes 400 ms late read 'goes' and passed before.
-function startsIn(oracle) {
+// A read timed from the event itself (t0 'event', CAP-Z3SCORE-EV) has its start after the move as ours do: then the window
+// is three of its frames each side (its slot comes 7 to 34 ms after the event, a drop's going 7 to 24 ms; ours 0 to 31).
+function startsIn(oracle, t0) {
+  const gaps = oracle.slice(1).map((f, j) => f[0] - oracle[j][0]).sort((a, b) => a - b), frame = gaps[Math.floor(gaps.length / 2)];
+  if (t0 === 'event') return { lo: 3 * frame, hi: 3 * frame };
   const firsts = [];
   for (const k of [1, 2]) {
     const key = (f) => JSON.stringify(f[k]);
     const i = oracle.findIndex((f, j) => j && key(f) !== key(oracle[j - 1]));
     if (i > 0) firsts.push(oracle[i][0]);
   }
-  const gaps = oracle.slice(1).map((f, j) => f[0] - oracle[j][0]).sort((a, b) => a - b);
-  return { first: Math.min(...firsts), frame: gaps[Math.floor(gaps.length / 2)] };
+  return { lo: Math.min(...firsts) + frame, hi: frame };
 }
-const onTime = (want, have, { first, frame }) => want === null || have === null || (have >= want - first - frame && have <= want + frame);
+const onTime = (want, have, { lo, hi }) => want === null || have === null || (have >= want - lo && have <= want + hi);
 
 async function frames(S, label, dy, pre, drop) {
   const [cx, cy] = place(S, label);
@@ -129,7 +132,7 @@ export async function rowReplay(S, finding, add) {
       if (!r && Object.keys(finding.reads).length) continue;
       const have = howItMoved(await frames(S, label, dy, pre, drop), label);
       if (!r) { add(name, undefined, JSON.stringify(have)); continue; }
-      const want = howItMoved(r.frames, label), win = startsIn(r.frames);
+      const want = howItMoved(r.frames, label), win = startsIn(r.frames, r.t0);
       const bad = Object.keys(want).filter((k) => (k.endsWith(' at') ? !onTime(want[k], have[k], win) : !closeTo(want[k], have[k])));
       add(name, !bad.length, `oracle ${JSON.stringify(want)}, ours ${JSON.stringify(have)}`);
     } else if (op === 'press' && a[0] === 'Escape') { pressEscape(S);
