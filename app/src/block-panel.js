@@ -580,7 +580,8 @@ export function blockPanelHtml(d, tab, content = null, open = null, shape = null
   if (image && open === 'image-fx') return effectPanelHtml(image);
   if ((content?.kind === 'form' || content?.kind === 'newsletter') && open?.startsWith('ff-')) return formFieldsPanelHtml(content, open, linkField);
   if (content?.kind === 'standin' && open?.startsWith('sp-view:')) return standinViewHtml(content, open.slice(8));
-  const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" data-btab="${t}">${t}</button>`;
+  // The open tab alone takes the Tab key's stop, tabindex 0, the others -1 (CAP-T12TABKEYS.json, CAP-T12TEXTTABS.json); the arrow keys move between them.
+  const tabBtn = (t) => `<button type="button" role="tab" class="sp-tab${t === tab ? ' is-on' : ''}" aria-selected="${t === tab}" tabindex="${t === tab ? 0 : -1}" data-btab="${t}">${t}</button>`;
   const row = (label, control) => `<div class="sp-row"><span class="sp-label">${label}</span><span class="sp-ctl">${control}</span></div>`;
   const sw = (key, on, label) => `<label class="sp-switch"><input type="checkbox" data-design="${key}" aria-label="${label}" ${on ? 'checked' : ''}><span aria-hidden="true"></span></label>`;
   const box = ([k, l, , , , axis]) => `<label class="bp-box sc-box">${barHtml(d[k], designRange(k))}<input type="text" data-design="${k}" aria-label="${axis ? `${l} ${axis}` : l}" value="${designText(k, d[k])}" autocomplete="off" spellcheck="false">${HITS}${axis ? `<b class="an-axis">${axis}</b>` : ARROWS}${resetBtn(`data-design-reset="${k}"`, Number(d[k]) !== DESIGN_DEFAULTS[k])}</label>`;

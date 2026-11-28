@@ -2574,7 +2574,8 @@ blockPanel.addEventListener('click', (e) => {
 // ArrowRight and ArrowLeft on a focused tab of the block panel move the focus to the next tab or the one before, round from
 // the last to the first and back, and open it, already 60 ms after the key; no block moves and Undo and Redo stay. Home and
 // End do nothing (CAP-T12TABKEYS.json T1 and T2, R1 and R2 alike, a Scrolling block's Content, Design and Animation tabs;
-// CAP-T12DRAGMID.json TK). Not read: ArrowUp and ArrowDown, another block kind's tabs (inferred), the phone view.
+// CAP-T12TEXTTABS.json A1 and A2, a Text block's Design and Animation: there the stopPropagation keeps the block still;
+// CAP-T12DRAGMID.json TK). Not read: ArrowUp and ArrowDown, a panel with four tabs, the phone view.
 blockPanel.addEventListener('keydown', (e) => {
   const t = e.target.closest?.('[data-btab]');
   if (!t || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
