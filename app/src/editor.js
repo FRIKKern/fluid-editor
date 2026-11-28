@@ -4277,8 +4277,12 @@ function accordionEscape() {
 // that grows takes the rows that hold it; a line that falls by one step (30 px) lets them go to the rows that hold it, never
 // more than it had; a line that falls by two steps or more moves the block's foot up by the fall and snaps it down to the
 // row pitch, at least 1 row, so the line can run over (180 to 90 leaves 3 rows for a line that needs 4, 120 to 0 leaves 1).
-// Where between 30 and 60 px the second rule starts was not read (the range moves by 30). Not read: a drag or arrow keys
-// through the steps and the items. The press's change after its input moves no
+// Where between 30 and 60 px the second rule starts was not read (the range moves by 30). At 1600 wide a 30 px fall plus
+// the 11 px gap is just under a row (41.09), so the two rules give the same rows there; at 1100 (rows 21.75, pitch 32.75) a
+// one-step fall moves the foot up as a bigger fall does: 180 to 150 takes 1/2/8/26 to 1/2/6/26, not the 1/2/7/26 that
+// holds the 182 px line, 90 to 60 1/2/6/26 to 1/2/4/26 and 30 to 0 1/2/4/26 to 1/2/2/26 (CAP-T12SNUGFALL.json, R1 and R2
+// alike). So every desktop fall takes the foot rule (setScrolling). Not read: a drag or arrow keys at 1100, the items.
+// The press's change after its input moves no
 // rows: the input took the step. Speed, Direction and Pause on hover move no rows either, also when a fall left the line
 // running over (CAP-T12WAVEREFIT.json, four orders, each read in two sessions); for Fade edges, Item Spacing, Text Size and a
 // block made taller by hand see below (CAP-T12REFIT2.json).
@@ -4320,13 +4324,15 @@ function setScrolling(change, label, before = JSON.stringify(model), live = fals
   // A fall of one step on a block made taller by hand (more rows than its line needed before the step) takes the same rule:
   // 1/2/12/26 at 180 (a line that needs 1/2/7/26), 150 takes it to 1/2/11/26, one row, not to the 1/2/6/26 that holds the
   // new line, and a Text block placed at 8/2/13/10, 8/2/12/10 or 6/2/12/10 stays (CAP-T12HANDFALL.json L1 to L3, R1 and R2
-  // alike). Not read: a drag or a key through such a step, a block made taller by hand in other columns.
+  // alike). A drag one value at a time, ArrowLeft keys and presses take one row a step the same way, 1/2/12/26 at 180 to
+  // 1/2/6/26 at 0, where one press to 0 leaves 1/2/7/26 (CAP-T12HANDSTEPS.json A and B, R1 and R2 alike). Not read: a
+  // block made taller by hand in other columns.
+  // A snug block takes it too (no test of the rows the old line needed): at 1100 wide 180 to 150 leaves 5 rows for a line
+  // that needs 6 (CAP-T12SNUGFALL.json, above). A Text Size fall takes it from 60 px (not read under that: it refits).
   const sized = bp === 'desktop' && w === w0 && /^Text size /.test(label);
-  const tall = !phone && w !== w0 && fall > 0 && rows0 > Math.max(1, Math.ceil((c0 + m.rg) / m.pitch - 0.02));
   if (phone && fall > 0) need = phoneFall(m, rows0, c0, h0, fall, fit);
   else if (phone) need = fall < 0 ? Math.max(rows0, fit) : fit;
-  else if ((w !== w0 || sized) && (fall >= m.pitch || tall)) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
-  else if (w !== w0 && fall > 0) need = Math.min(rows0, fit);
+  else if ((w !== w0 && fall > 0) || (sized && fall >= m.pitch)) need = rows0 > fit ? Math.max(1, Math.floor((Math.max(h0, c0) - fall) / m.pitch + 1e-6)) : rows0;
   else if (w !== w0 && fall < 0) need = Math.max(rows0, fit);
   // Fade edges and Item Spacing keep them too, after a fall and on a block made taller by hand; Text Size refits to the new line
   // (CAP-T12REFIT2.json, R1 and R2 alike). Text Style keeps them as well: Paragraph after a fall leaves the rows and the line's
